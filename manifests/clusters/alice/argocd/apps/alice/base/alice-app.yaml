@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: alice-configs-app
+  name: alice
   annotations:
     argocd.argoproj.io/sync-wave: "1"
     argocd.argoproj.io/compare-options: IgnoreExtraneous
@@ -13,7 +13,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster-config
   source:
-    path: manifests/clusters/alice/configs/base
+    path: manifests/clusters/alice/argocd/apps/alice/base
     repoURL: https://github.com/nasx/umbrella-gitops.git
     targetRevision: main
   syncPolicy:
