@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: ocs-node2.alice.ocp.pwc.umbrella.local
+  labels:
+    node-role.kubernetes.io/worker: null
+    node-role.kubernetes.io/ocs: ""
+    cluster.ocs.openshift.io/openshift-storage: ""

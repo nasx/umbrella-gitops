@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: cnv-node1.alice.ocp.pwc.umbrella.local
+  labels:
+    node-role.kubernetes.io/worker: null
+    node-role.kubernetes.io/cnv: ""
