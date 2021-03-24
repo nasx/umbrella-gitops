@@ -1,0 +1,23 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: ResourceLocker
+metadata:
+  name: infra-node2-patch
+  namespace: resource-locker-config
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  serviceAccountRef:
+    name: resource-locker-node-sa
+  patches:
+  - targetObjectRef:
+      apiVersion: v1
+      kind: Node
+      name: infra-node2.alice.ocp.pwc.umbrella.local
+    patchTemplate: |
+      metadata:
+        labels:
+          node-role.kubernetes.io/worker: null
+          node-role.kubernetes.io/cnv: ""
+    patchType: application/strategic-merge-patch+json
+    id: infra-node2-label
