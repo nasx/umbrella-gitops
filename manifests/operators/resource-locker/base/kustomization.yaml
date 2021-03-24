@@ -3,3 +3,7 @@ kind: Kustomization
 
 resources:
   - subscription.yaml
+  - namespace.yaml
+  - role-node.yaml
+  - rolebinding-node.yaml
+  - serviceaccount-node.yaml

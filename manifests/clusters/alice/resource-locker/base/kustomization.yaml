@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - ../../../../operators/resource-locker/base
+  - cnv-node1.yaml
