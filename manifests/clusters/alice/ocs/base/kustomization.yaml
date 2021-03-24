@@ -2,4 +2,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../../../../../operators/ocs-operator/base
+  - ../../../../operators/ocs-operator/base
+  - storagecluster.yaml

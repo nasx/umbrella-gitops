@@ -18,6 +18,6 @@ spec:
       metadata:
         labels:
           node-role.kubernetes.io/worker: null
-          node-role.kubernetes.io/cnv: ""
+          node-role.kubernetes.io/infra: ""
     patchType: application/strategic-merge-patch+json
     id: infra-node0-label
