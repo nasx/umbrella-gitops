@@ -3,5 +3,9 @@ kind: HyperConverged
 metadata:
   namespace: openshift-cnv
   name: kubevirt-hyperconverged
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   BareMetalPlatform: false
