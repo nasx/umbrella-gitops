@@ -24,5 +24,5 @@ spec:
             claim: registry-shared-storage
         nodeSelector:
           node-role.kubernetes.io/infra: ""
-    patchType: application/json-patch+json
+    patchType: application/merge-patch+json
     id: registry-patch
