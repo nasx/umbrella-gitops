@@ -5,7 +5,10 @@ resources:
   - ../../../../operators/resource-locker/base
   - serviceaccount-node.yaml
   - serviceaccount-registry.yaml
+  - serviceaccount-ingress.yaml
   - clusterrole-node.yaml
   - clusterrole-registry.yaml
+  - clusterrole-ingress.yaml
   - clusterrolebinding-node.yaml
-  - clusterrolebinding-registry.yaml  
+  - clusterrolebinding-registry.yaml
+  - clusterrolebinding-ingress.yaml

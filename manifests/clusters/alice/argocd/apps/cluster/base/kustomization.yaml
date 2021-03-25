@@ -8,3 +8,4 @@ resources:
   - registry-app.yaml
   - node-labels-app.yaml
   - sealed-secrets-app.yaml
+  - ingress-controller-app.yaml
