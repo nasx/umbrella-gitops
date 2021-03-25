@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - oauth-ldap-ca-config-map.yaml
   - oauth-patch.yaml
+  - cluster-admin.yaml
