@@ -1,0 +1,35 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: ResourceLocker
+metadata:
+  name: registry-patch
+  namespace: resource-locker-config
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  serviceAccountRef:
+    name: resource-locker-registry-sa
+  patches:
+  - targetObjectRef:
+      apiVersion: imageregistry.operator.openshift.io/v1
+      kind: Config
+      name: cluster
+    patchTemplate: |
+      spec:
+        managementState: Managed
+        defaultRoute: true
+        replicas: 3
+        storage:
+          pvc:
+            claim: registry-shared-storage
+        nodeSelector:
+          node-role.kubernetes.io/infra: ""
+        tolerations:
+        - effect: NoSchedule
+          key: infra
+          value: reserved
+        - effect: NoExecute
+          key: infra
+          value: reserved
+    patchType: application/strategic-merge-patch+json
+    id: registry-patch
