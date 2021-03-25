@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - ../../../../operators/cnv/base
-  - kubevirt-hyperconverged
+  - kubevirt-hyperconverged.yaml
