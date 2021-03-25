@@ -5,3 +5,5 @@ resources:
   - ocs-app.yaml
   - machine-config-pools-app.yaml
   - resource-locker-app.yaml
+  - registry-app.yaml
+  - node-labels.yaml
