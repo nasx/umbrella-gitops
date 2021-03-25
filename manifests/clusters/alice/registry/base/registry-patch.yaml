@@ -24,12 +24,5 @@ spec:
             claim: registry-shared-storage
         nodeSelector:
           node-role.kubernetes.io/infra: ""
-        tolerations:
-        - effect: NoSchedule
-          key: infra
-          value: reserved
-        - effect: NoExecute
-          key: infra
-          value: reserved
     patchType: application/strategic-merge-patch+json
     id: registry-patch
