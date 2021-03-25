@@ -11,3 +11,4 @@ resources:
   - ingress-controller-app.yaml
   - apiserver-app.yaml
   - oauth-app.yaml
+  - cnv-app.yaml
