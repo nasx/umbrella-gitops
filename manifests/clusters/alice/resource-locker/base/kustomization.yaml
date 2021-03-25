@@ -6,9 +6,12 @@ resources:
   - serviceaccount-node.yaml
   - serviceaccount-registry.yaml
   - serviceaccount-ingress.yaml
+  - serviceaccount-apiserver.yaml
   - clusterrole-node.yaml
   - clusterrole-registry.yaml
   - clusterrole-ingress.yaml
+  - clusterrole-apiserver.yaml
   - clusterrolebinding-node.yaml
   - clusterrolebinding-registry.yaml
   - clusterrolebinding-ingress.yaml
+  - clusterrolebinding-apiserver.yaml
