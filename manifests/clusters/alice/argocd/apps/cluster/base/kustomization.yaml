@@ -6,4 +6,4 @@ resources:
   - machine-config-pools-app.yaml
   - resource-locker-app.yaml
   - registry-app.yaml
-  - node-labels.yaml
+  - node-labels-app.yaml
