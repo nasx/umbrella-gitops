@@ -5,9 +5,10 @@ metadata:
   namespace: resource-locker-config
 rules:
 - apiGroups:
-  - imageregistry.operator.openshift.io/v1
+  - imageregistry.operator.openshift.io
   resources:
   - config
+  - configs
   verbs:
   - list
   - get
