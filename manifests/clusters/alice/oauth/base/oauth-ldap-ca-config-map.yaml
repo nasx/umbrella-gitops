@@ -3,6 +3,9 @@ kind: ConfigMap
 metadata:
   name: oauth-ldap-ca-config-map
   namespace: openshift-config
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 data:
   ca.crt: |
     -----BEGIN CERTIFICATE-----
