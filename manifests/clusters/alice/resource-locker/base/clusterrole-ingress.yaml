@@ -7,7 +7,8 @@ rules:
 - apiGroups:
   - operator.openshift.io
   resources:
-  - IngressController
+  - ingresscontroller
+  - ingresscontrollers
   verbs:
   - list
   - get
