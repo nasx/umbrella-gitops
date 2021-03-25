@@ -7,3 +7,4 @@ resources:
   - resource-locker-app.yaml
   - registry-app.yaml
   - node-labels-app.yaml
+  - sealed-secrets-app.yaml
