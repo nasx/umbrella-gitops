@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - cnv-node0.yaml
+  - cnv-node1.yaml
+  - cnv-node2.yaml
+  - ocs-node0.yaml
+  - ocs-node1.yaml
+  - ocs-node2.yaml
+  - infra-node0.yaml
+  - infra-node1.yaml
+  - infra-node2.yaml
