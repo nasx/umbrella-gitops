@@ -1,0 +1,15 @@
+kind: SealedSecret
+apiVersion: bitnami.com/v1alpha1
+metadata:
+  name: oauth-ldap-bind-secret
+  namespace: openshift-config
+  creationTimestamp: null
+spec:
+  template:
+    metadata:
+      name: oauth-ldap-bind-secret
+      namespace: openshift-config
+      creationTimestamp: null
+    type: Opaque
+  encryptedData:
+    bindPassword: AgB1B226v5yiGOhn2+N+BppJ/8sSLGivHq8y+ZCPueJXRlt2o6O65xnAr69ZHDIZaGGrnbhpAia2gDmGAWMDif6nUsRrpKJ7gXq720KxahxowiZPWjl19uq0UMyG+zp6enBqRbFc0w2I82HDIb+tFQdiFqxUPjeV7uZMt7LkY/rwcnVPspWAQfmVxcLi5dsC8NZFM1rDgBZEbruKu45eyV4EHnDQh6GGnA4YPEl5aTnT1/eiG4cHx99e8EC3QkeHPjupXuMHCSN/1FlF3moZIAhIyCM9+H9TXV0rT+bE+tI30hfOWHJpulrM/hpRNJZLUY8Z0eMzo65caBrsF7Qy4drzQdb9CBSWXub1guvT6ZfcnBSa/R7ESjV+57xAQMchIhTMAuqjwy6E18rN/zFKwrKhQ8RtOKTBa+0Kbya5rhVgY/LDNyUHJX229dOWAvxZSzYHX5M55es1tbY319Z+pPgu7HN/k5Hs0b2mCv1mUbqtb4l78bFS6dv9GSxGBFAxwTLXC+Odr3fhvBTagxgxu7Q976iU1Jmr+MI2+QDDmKHtx2LKi/+F7Ty/MQOtN5PEM//TDg4ZxnEA3Xv9wHrfM7W9UaLvaedhAwCVQZrlHstsIJZmcKOEEwErYCbiXkDL4myHbMaPKJJ6SmEWLDKns3/h9OIak/1bovov6VtbliGXNhz2x/+V9xu78DNxoIywGv6XMgyR3McOfkI=
