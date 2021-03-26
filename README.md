@@ -36,5 +36,5 @@ oc apply -k manifests/bootstrap/openshift-gitops/base
 Finally, we can configure our cluster by deploying the base application (app of apps methodology). The base application will in turn deploy all other applications/configurations.
 
 ```shell
-oc apply -k manifests/clusters/alice/argocd/apps/<cluster-name>/base
+oc apply -k manifests/clusters/<cluster-name>/argocd/apps/<cluster-name>/base
 ```
