@@ -5,10 +5,11 @@ metadata:
   namespace: resource-locker-config
 rules:
 - apiGroups:
-  - ""
+  - apps
+  - extensions
   resources:
-  - deployment.apps
-  - deployments.apps
+  - deployment
+  - deployments
   verbs:
   - list
   - get
