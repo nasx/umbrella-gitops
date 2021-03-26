@@ -1,0 +1,37 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ansible-runner-clusterrole
+  namespace: ansible-runner
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - services
+      - secrets
+    verbs:
+      - list
+      - get
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - operator.open-cluster-management.io
+    resources:
+      - multiclusterhubs
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - apps
+      - extensions
+    resources:
+      - deployments
+    verbs:
+      - list
+      - get
+      - watch
+      - update
+      - patch

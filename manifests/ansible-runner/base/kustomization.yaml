@@ -3,5 +3,8 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - ansible-runner-sa.yaml
+  - ansible-runner-clusterrole.yaml
+  - ansible-runner-clusterrolebinding.yaml
   - ansible-runner-imagestream.yaml
   - ansible-runner-buildconfig.yaml
