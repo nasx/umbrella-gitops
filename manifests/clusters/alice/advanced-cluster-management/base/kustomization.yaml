@@ -4,3 +4,6 @@ kind: Kustomization
 resources:
   - ../../../../operators/advanced-cluster-management/base
   - multiclusterhub.yaml
+  - byo-ingress-tls-sealed.yaml
+  - byo-ca-cert-sealed.yaml
+  - ingress-deployment-patch.yaml
