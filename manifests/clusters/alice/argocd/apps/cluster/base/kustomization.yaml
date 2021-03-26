@@ -13,3 +13,4 @@ resources:
   - oauth-app.yaml
   - cnv-app.yaml
   - advanced-cluster-management-app.yaml
+  - ansible-runner-app.yaml

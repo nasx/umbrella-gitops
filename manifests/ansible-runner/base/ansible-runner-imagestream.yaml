@@ -1,0 +1,6 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: ansible-runner
+  namespace: ansible-runner
+spec: {}
