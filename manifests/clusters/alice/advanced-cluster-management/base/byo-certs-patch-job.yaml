@@ -35,6 +35,6 @@ spec:
           name: ansible-runner
       dnsPolicy: ClusterFirst
       restartPolicy: OnFailure
-      serviceAccount: ansible-runner
-      serviceAccountName: ansible-runner
+      serviceAccount: ansible-runner-sa
+      serviceAccountName: ansible-runner-sa
       terminationGracePeriodSeconds: 30
