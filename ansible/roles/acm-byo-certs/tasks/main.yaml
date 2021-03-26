@@ -1,0 +1,81 @@
+- name: Wait for ACM Operator
+  community.kubernetes.k8s_info:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    api_version: v1
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    kind: Pod
+    namespace: "{{ acm_hub_namespace }}"
+    label_selectors:
+      - name=multiclusterhub-operator
+  register: pod
+  retries: 60
+  delay: 10
+  until:
+    - pod.resources[0].status.phase == "Running"
+
+- name: Wait for MultiClusterHub
+  community.kubernetes.k8s_info:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    api_version: operator.open-cluster-management.io/v1
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    kind: MultiClusterHub
+    name: "{{ acm_hub_name }}"
+    namespace: "{{ acm_hub_namespace }}"
+  register: multiclusterhub
+  retries: 60
+  delay: 10
+  until:
+    - multiclusterhub.resources[0].status.phase == "Running"
+
+- name: Find Management Ingress Deployment
+  community.kubernetes.k8s_info:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    api_version: apps/v1
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    kind: Deployment
+    namespace: "{{ acm_hub_namespace }}"
+    label_selectors:
+      - helm.sh/chart = management-ingress
+  register: ingress_deployment
+
+- name: Debug
+  ansible.builtin.debug:
+    var: ingress_deployment.resources[0].metadata.name
+    verbosity: 1
+
+- name: Patch Management Ingress Deployment
+  community.kubernetes.k8s:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    merge_type: strategic-merge
+    state: present
+    resource_definition:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: "{{ ingress_deployment.resources[0].metadata.name }}"
+        namespace: "{{ acm_hub_namespace }}"
+      spec:
+        template:
+          spec:
+            containers:
+            - command:
+              - /management-ingress
+              - --default-ssl-certificate=$(POD_NAMESPACE)/{{ acm_tls_secret }}
+              - --configmap=$(POD_NAMESPACE)/{{ ingress_deployment.resources[0].metadata.name }}
+              - --http-port=8080
+              - --https-port=8443
+              name: "{{ ingress_deployment.resources[0].metadata.name }}"
+            volumes:
+            - name: tls-secret
+              secret:
+                defaultMode: 420
+                secretName: "{{ acm_tls_secret }}"
+            - name: ca-tls-secret
+              secret:
+                defaultMode: 420
+                secretName: "{{ acm_ca_secret }}"

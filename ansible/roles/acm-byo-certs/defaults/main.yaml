@@ -1,0 +1,5 @@
+acm_hub_namespace: open-cluster-management
+acm_hub_name: umbrella-hub
+acm_pull_secret: pull-secret
+acm_tls_secret: byo-ingress-tls-secret
+acm_ca_secret: byo-ca-cert

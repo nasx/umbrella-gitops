@@ -1,0 +1,4 @@
+- name: Deploy Custom ACM Ingress Certificates
+  hosts: localhost
+  roles:
+    - role: acm-byo-certs

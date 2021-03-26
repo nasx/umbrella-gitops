@@ -7,3 +7,4 @@ resources:
   - byo-ingress-tls-sealed.yaml
   - byo-ca-cert-sealed.yaml
   - ingress-deployment-patch.yaml
+  - byo-certs-patch-job.yaml
