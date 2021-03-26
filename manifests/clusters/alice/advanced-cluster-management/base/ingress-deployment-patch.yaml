@@ -11,7 +11,7 @@ spec:
     name: resource-locker-ingress-deployment-sa
   patches:
   - targetObjectRef:
-      apiVersion: v1
+      apiVersion: apps/v1
       kind: Deployment
       namespace: open-cluster-management
       metadata:
@@ -39,7 +39,7 @@ spec:
                 defaultMode: 420
                 secretName: byo-ca-cert
     sourceObjectRefs:
-    - apiVersion: v1
+    - apiVersion: apps/v1
       kind: Deployment
       namespace: open-cluster-management
       metadata:
