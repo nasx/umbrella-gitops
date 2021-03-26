@@ -12,3 +12,4 @@ resources:
   - apiserver-app.yaml
   - oauth-app.yaml
   - cnv-app.yaml
+  - advanced-cluster-management-app.yaml
