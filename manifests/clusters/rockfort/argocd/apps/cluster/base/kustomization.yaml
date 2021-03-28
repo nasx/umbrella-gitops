@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - ansible-runner-app.yaml
+  - resource-locker-app.yaml

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rockfort
+  name: resource-locker
   annotations:
     argocd.argoproj.io/sync-wave: "1"
     argocd.argoproj.io/compare-options: IgnoreExtraneous
@@ -13,7 +13,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster-config
   source:
-    path: manifests/clusters/rockfort/argocd/apps/cluster/base
+    path: manifests/clusters/rockfort/resource-locker/base
     repoURL: https://github.com/nasx/umbrella-gitops.git
     targetRevision: main
   syncPolicy:
