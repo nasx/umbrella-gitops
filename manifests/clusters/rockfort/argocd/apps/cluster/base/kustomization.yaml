@@ -5,3 +5,5 @@ resources:
   - ansible-runner-app.yaml
   - resource-locker-app.yaml
   - registry-app.yaml
+  - oauth-app.yaml
+  - sealed-secrets-app.yaml

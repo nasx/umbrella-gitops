@@ -1,9 +1,9 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: resource-locker
+  name: oauth
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "2"
     argocd.argoproj.io/compare-options: IgnoreExtraneous
   labels:
     gitops.ownedBy: cluster-config
@@ -13,7 +13,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster-config
   source:
-    path: manifests/clusters/rockfort/resource-locker/base
+    path: manifests/clusters/rockfort/oauth/base
     repoURL: https://github.com/nasx/umbrella-gitops.git
     targetRevision: main
   syncPolicy:

@@ -4,5 +4,8 @@ kind: Kustomization
 resources:
   - ../../../../operators/resource-locker/base
   - serviceaccount-registry.yaml
+  - serviceaccount-oauth.yaml
   - clusterrole-registry.yaml
+  - clusterrole-oauth.yaml
   - clusterrolebinding-registry.yaml
+  - clusterrolebinding-oauth.yaml

@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oauth-ldap-ca-config-map
+  namespace: openshift-config
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+data:
+  ca.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIDlDCCAnygAwIBAgIBATANBgkqhkiG9w0BAQsFADA5MRcwFQYDVQQKDA5VTUJS
+    RUxMQS5MT0NBTDEeMBwGA1UEAwwVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MB4XDTE5
+    MDgxMDE2MzIzM1oXDTM5MDgxMDE2MzIzM1owOTEXMBUGA1UECgwOVU1CUkVMTEEu
+    TE9DQUwxHjAcBgNVBAMMFUNlcnRpZmljYXRlIEF1dGhvcml0eTCCASIwDQYJKoZI
+    hvcNAQEBBQADggEPADCCAQoCggEBAM4sMIGdDI3QeUCXZYeeyj4UrNxEkbgtSSGP
+    IvrJSDHk+Chi8ER/7vCqEYNZBNMDmmfT8PFqYdTVSh3YCrHbRF7NBEtQDVdX9/f6
+    pxHEiDdryXdVGywtqhogQagBDKmdKy1ckXisA73CC5KyXOeKtG0nPFY+gDtc8/qF
+    bMVxYcWjIYe6UPaaZQfaAsCBFBe2qvKttp9QS/9MMqaaXiO6JE/0yvEgAYHURZlu
+    Ml9U8FnQhaZDfHEggSjWSUBGSDN0KquErs64EScK9eh/As2XTuVE+ZH2kmqzbIyK
+    l3RmPaqNNk92VNhhh7SU9rWchcQAVVTzKTezhs+pkqgIu+lfunsCAwEAAaOBpjCB
+    ozAfBgNVHSMEGDAWgBTtVLfI7RPVutrZLbEc8WzsLT4nPTAPBgNVHRMBAf8EBTAD
+    AQH/MA4GA1UdDwEB/wQEAwIBxjAdBgNVHQ4EFgQU7VS3yO0T1bra2S2xHPFs7C0+
+    Jz0wQAYIKwYBBQUHAQEENDAyMDAGCCsGAQUFBzABhiRodHRwOi8vaXBhLWNhLnVt
+    YnJlbGxhLmxvY2FsL2NhL29jc3AwDQYJKoZIhvcNAQELBQADggEBAIvSppMuGZur
+    mWzzq7M0O9YFuWdcMFYy4ZVy9G30wl7GJpw/Yvq7U3qiW9gA6nWLQpR7i2u7xwwe
+    RqW59AwNcXDOjPzRC0Zfg4sh6kbxXB4vvNIfcCRKjaxumb6CYEAWtkl1uoO2qSJO
+    QKP0nfnpNhiIl0+aTf9ObcE1eYbA2u9fs9peDBV/Z2cYXUOcLkAp3evxdZaQWoK0
+    ZGXWJCclFj0VIUczYy2B+jTJ3MmiksN8iBD5SxginzlhqsnwhQOh//YLPNTxny/e
+    97b1xaoJ2o8i9ZTgi8A9Ttc48RhhE5k5SCBABY5JAuggVa3iLO3FQF5uU2sel5Pk
+    8/wAB0VlxHM=
+    -----END CERTIFICATE-----
