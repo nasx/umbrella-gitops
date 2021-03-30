@@ -4,8 +4,14 @@ kind: Kustomization
 resources:
   - ../../../../operators/resource-locker/base
   - ../../../../resource-locker/serviceaccount-registry.yaml
+  - ../../../../resource-locker/serviceaccount-ingress.yaml
+  - ../../../../resource-locker/serviceaccount-apiserver.yaml
   - ../../../../resource-locker/serviceaccount-oauth.yaml
   - ../../../../resource-locker/clusterrole-registry.yaml
+  - ../../../../resource-locker/clusterrole-ingress.yaml
+  - ../../../../resource-locker/clusterrole-apiserver.yaml
   - ../../../../resource-locker/clusterrole-oauth.yaml
   - ../../../../resource-locker/clusterrolebinding-registry.yaml
+  - ../../../../resource-locker/clusterrolebinding-ingress.yaml
+  - ../../../../resource-locker/clusterrolebinding-apiserver.yaml
   - ../../../../resource-locker/clusterrolebinding-oauth.yaml
