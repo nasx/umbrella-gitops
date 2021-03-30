@@ -1,0 +1,6 @@
+acm_version: "2.2"
+acm:
+  acm_hub_kubeconfig: /home/chris/upi/alice/auth/kubeconfig
+  spokes:
+    - name: rockfort
+      kubeconfig: /home/chris/upi/rockfort/auth/kubeconfig

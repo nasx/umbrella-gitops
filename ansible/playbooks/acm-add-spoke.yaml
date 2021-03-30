@@ -1,0 +1,4 @@
+- name: Configure ACM Spoke Clusters
+  hosts: localhost
+  roles:
+    - role: acm-add-spoke

@@ -1,0 +1,119 @@
+- name: Fail if acm_hub_kubeconfig is not Defined
+  ansible.builtin.fail:
+    msg: "acm_hub_kubeconfig is not defined!"
+  when:
+    - acm.acm_hub_kubeconfig is not defined
+
+- name: Create ManagedCluster Resource
+  community.kubernetes.k8s:
+    definition:
+      apiVersion: cluster.open-cluster-management.io/v1
+      kind: ManagedCluster
+      metadata:
+        labels:
+          cloud: "{{ spoke.cloud | default('auto-detect') }}"
+          vendor: "{{ spoke.vendor | default('auto-detect') }}"
+          name: "{{ spoke.name }}"
+        name: "{{ spoke.name }}"
+      spec:
+        hubAcceptsClient: true
+    kubeconfig: "{{ acm.acm_hub_kubeconfig }}"
+    state: present
+  register: managedcluster
+  loop: "{{ acm.spokes }}"
+  loop_control:
+    loop_var: spoke
+  
+- name: Create KlusterletAddonConfig Resource
+  community.kubernetes.k8s:
+    kubeconfig: "{{ acm.acm_hub_kubeconfig }}"
+    state: present
+    definition:
+      apiVersion: agent.open-cluster-management.io/v1
+      kind: KlusterletAddonConfig
+      metadata:
+        name: "{{ spoke.name }}"
+        namespace: "{{ spoke.name }}"
+      spec:
+        clusterName: "{{ spoke.name }}"
+        clusterNamespace: "{{ spoke.name }}"
+        clusterLabels:
+          cloud: "{{ spoke.cloud | default('auto-detect') }}"
+          vendor: "{{ spoke.vendor | default('auto-detect') }}"
+        applicationManager:
+          enabled: "{{ spoke.applicationManager | default(true) }}"
+        policyController:
+          enabled: "{{ spoke.policyController | default(true) }}"
+        searchCollector:
+          enabled: "{{ spoke.searchController | default(true) }}"
+        certPolicyController:
+          enabled: "{{ spoke.certPolicyController | default(true) }}"
+        iamPolicyController:
+          enabled: "{{ spoke.iamPolicyController | default(true) }}"
+        version: "{{ acm_version }}"
+  register: klusterletaddonconfig
+  loop: "{{ acm.spokes }}"
+  loop_control:
+    loop_var: spoke
+
+- name: Wait till the import secret is created
+  community.kubernetes.k8s_info:
+    kind: Secret
+    name: "{{ spoke.name }}-import"
+    namespace: "{{ spoke.name }}"
+    wait: yes
+    wait_sleep: 20
+    wait_timeout: 40
+  loop: "{{ acm.spokes }}"
+  loop_control:
+    loop_var: spoke
+  tags:
+    - acm-add-spoke
+
+- name: Gather Installation Payloads
+  community.kubernetes.k8s_info:
+    api_version: v1
+    kind: Secret
+    kubeconfig: "{{ acm.acm_hub_kubeconfig }}"
+    name: "{{ spoke.name }}-import"
+    namespace: "{{ spoke.name }}"
+  register: payloads
+  loop: "{{ acm.spokes }}"
+  loop_control:
+    loop_var: spoke
+
+- name: Debug CRDs
+  ansible.builtin.debug:
+    msg: "{{ payload.resources[0].data['crds.yaml'] | b64decode }}"
+  when:
+    - ansible_verbosity >= 1
+  loop: "{{ payloads.results }}"
+  loop_control:
+    loop_var: payload
+
+- name: Debug Import Payload
+  ansible.builtin.debug:
+    msg: "{{ payload.resources[0].data['import.yaml'] | b64decode }}"
+  when:
+    - ansible_verbosity >= 1
+  loop: "{{ payloads.results }}"
+  loop_control:
+    loop_var: payload
+
+- name: Configure Spoke Clusters - CRDs
+  community.kubernetes.k8s:
+    kubeconfig: "{{ item.0.kubeconfig }}"
+    resource_definition: "{{ item.1.resources[0].data['crds.yaml'] | b64decode | from_yaml_all | list }}"
+    state: present
+  with_together:
+    - "{{ acm.spokes }}"
+    - "{{ payloads.results }}"
+
+- name: Configure Spoke Clusters - Import
+  community.kubernetes.k8s:
+    kubeconfig: "{{ item.0.kubeconfig }}"
+    resource_definition: "{{ item.1.resources[0].data['import.yaml'] | b64decode | from_yaml_all | list }}"
+    state: present
+  with_together:
+    - "{{ acm.spokes }}"
+    - "{{ payloads.results }}"
