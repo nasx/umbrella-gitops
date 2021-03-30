@@ -7,3 +7,5 @@ resources:
   - registry-app.yaml
   - oauth-app.yaml
   - sealed-secrets-app.yaml
+  - ingress-controller-app.yaml
+  - apiserver-app.yaml

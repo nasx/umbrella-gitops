@@ -3,18 +3,18 @@ kind: Kustomization
 
 resources:
   - ../../../../operators/resource-locker/base
-  - serviceaccount-node.yaml
-  - serviceaccount-registry.yaml
-  - serviceaccount-ingress.yaml
-  - serviceaccount-apiserver.yaml
-  - serviceaccount-oauth.yaml
-  - clusterrole-node.yaml
-  - clusterrole-registry.yaml
-  - clusterrole-ingress.yaml
-  - clusterrole-apiserver.yaml
-  - clusterrole-oauth.yaml
-  - clusterrolebinding-node.yaml
-  - clusterrolebinding-registry.yaml
-  - clusterrolebinding-ingress.yaml
-  - clusterrolebinding-apiserver.yaml
-  - clusterrolebinding-oauth.yaml
+  - ../../../../resource-locker/serviceaccount-node.yaml
+  - ../../../../resource-locker/serviceaccount-registry.yaml
+  - ../../../../resource-locker/serviceaccount-ingress.yaml
+  - ../../../../resource-locker/serviceaccount-apiserver.yaml
+  - ../../../../resource-locker/serviceaccount-oauth.yaml
+  - ../../../../resource-locker/clusterrole-node.yaml
+  - ../../../../resource-locker/clusterrole-registry.yaml
+  - ../../../../resource-locker/clusterrole-ingress.yaml
+  - ../../../../resource-locker/clusterrole-apiserver.yaml
+  - ../../../../resource-locker/clusterrole-oauth.yaml
+  - ../../../../resource-locker/clusterrolebinding-node.yaml
+  - ../../../../resource-locker/clusterrolebinding-registry.yaml
+  - ../../../../resource-locker/clusterrolebinding-ingress.yaml
+  - ../../../../resource-locker/clusterrolebinding-apiserver.yaml
+  - ../../../../resource-locker/clusterrolebinding-oauth.yaml
