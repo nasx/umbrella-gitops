@@ -1,0 +1,9 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: umbrella-gitops
+  namespace: umbrella-gitops
+spec:
+  type: GitHub
+  pathname: https://github.com/nasx/umbrella-gitops.git

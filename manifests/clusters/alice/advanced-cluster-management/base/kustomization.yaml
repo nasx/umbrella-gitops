@@ -8,3 +8,6 @@ resources:
   - byo-ca-cert-sealed.yaml
   - ingress-deployment-patch.yaml
   - byo-certs-patch-job.yaml
+  - umbrella-gitops-namespace.yaml
+  - umbrella-gitops-channel.yaml
+  - placement-rule-rockfort.yaml
