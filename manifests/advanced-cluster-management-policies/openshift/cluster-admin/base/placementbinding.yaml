@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: limit-cluster-admin
+  namespace: umbrella-gitops
+placementRef:
+  name: limit-cluster-admin
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: policy-limit-cluster-admin
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

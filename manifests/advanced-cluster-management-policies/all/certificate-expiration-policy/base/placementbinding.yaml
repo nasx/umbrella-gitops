@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: certificate-expiration
+  namespace: umbrella-gitops
+placementRef:
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+  name: certificate-expiration
+subjects:
+- apiGroup: policy.open-cluster-management.io
+  kind: Policy
+  name: policy-certificate-expiration

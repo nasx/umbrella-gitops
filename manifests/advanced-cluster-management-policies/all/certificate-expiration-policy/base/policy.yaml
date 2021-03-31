@@ -1,0 +1,27 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-certificate-expiration
+  namespace: umbrella-gitops
+  annotations:
+    policy.open-cluster-management.io/categories: PR.DS Data Security
+    policy.open-cluster-management.io/controls: PR.DS-2 Data-in-transit
+    policy.open-cluster-management.io/standards: NIST-CSF
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: CertificatePolicy
+        metadata:
+          name: certificate-expiration
+        spec:
+          minimumDuration: 720h
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          remediationAction: inform
+          severity: low
+  remediationAction: inform

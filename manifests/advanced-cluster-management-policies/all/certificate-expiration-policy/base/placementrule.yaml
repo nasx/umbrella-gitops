@@ -1,0 +1,15 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: certificate-expiration
+  namespace: umbrella-gitops
+spec:
+  clusterConditions:
+  - status: "True"
+    type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+    - key: global
+      operator: In
+      values:
+      - "yes"
