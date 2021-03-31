@@ -14,3 +14,4 @@ resources:
   - cnv-app.yaml
   - advanced-cluster-management-app.yaml
   - ansible-runner-app.yaml
+  - compliance-operator-app.yaml
