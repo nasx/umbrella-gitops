@@ -9,3 +9,4 @@ resources:
   - sealed-secrets-app.yaml
   - ingress-controller-app.yaml
   - apiserver-app.yaml
+  - compliance-operator-app.yaml
