@@ -1,0 +1,18 @@
+apiVersion: compliance.openshift.io/v1alpha1
+kind: ScanSettingBinding
+metadata:
+  name: cis
+  namespace: openshift-compliance
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+profiles:
+- apiGroup: compliance.openshift.io/v1alpha1
+  kind: Profile
+  name: ocp4-cis
+- apiGroup: compliance.openshift.io/v1alpha1
+  kind: Profile
+  name: ocp4-cis-node
+settingsRef:
+  apiGroup: compliance.openshift.io/v1alpha1
+  kind: ScanSetting
+  name: default
