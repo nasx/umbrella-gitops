@@ -10,3 +10,4 @@ resources:
   - byo-certs-patch-job.yaml
   - umbrella-gitops-namespace.yaml
   - umbrella-gitops-channel.yaml
+  - aws-sa-northeast-sealed.yaml
