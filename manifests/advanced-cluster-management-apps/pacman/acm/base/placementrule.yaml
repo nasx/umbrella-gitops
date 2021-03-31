@@ -2,7 +2,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: placement-rule-pacman-app
-  namespace: umbrella-gitops
+  namespace: pacman-app
 spec:
   clusterConditions:
     - type: ManagedClusterConditionAvailable
