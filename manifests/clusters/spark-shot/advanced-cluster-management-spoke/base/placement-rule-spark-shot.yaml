@@ -1,0 +1,15 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-rule-spark-shot
+  namespace: umbrella-gitops
+spec:
+  clusterConditions:
+    - type: ManagedClusterConditionAvailable
+      status: "True"
+  clusterSelector:
+    matchExpressions:
+    - key: name
+      operator: In
+      values:
+      - spark-shot
