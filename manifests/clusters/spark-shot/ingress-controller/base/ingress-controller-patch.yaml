@@ -1,0 +1,21 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: ResourceLocker
+metadata:
+  name: ingress-controller-patch
+  namespace: resource-locker-config
+spec:
+  serviceAccountRef:
+    name: resource-locker-ingress-sa
+  patches:
+  - targetObjectRef:
+      apiVersion: operator.openshift.io/v1
+      kind: IngressController
+      name: default
+      namespace: openshift-ingress-operator
+    patchTemplate: |
+      spec:
+        replicas: 3
+        defaultCertificate:
+          name: wildcard-cert
+    patchType: application/merge-patch+json
+    id: ingress-controller-patch
