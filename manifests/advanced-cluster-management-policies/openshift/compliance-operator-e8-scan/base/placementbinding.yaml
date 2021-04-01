@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-e8-scan
+  namespace: openshift-compliance
+placementRef:
+  name: placement-policy-e8-scan
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: policy-e8-scan
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

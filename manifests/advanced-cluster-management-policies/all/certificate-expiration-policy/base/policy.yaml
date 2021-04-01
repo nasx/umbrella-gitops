@@ -21,7 +21,7 @@ spec:
             exclude:
               - kube-*
             include:
-              - default
+              - "*"
           remediationAction: inform
           severity: low
   remediationAction: inform

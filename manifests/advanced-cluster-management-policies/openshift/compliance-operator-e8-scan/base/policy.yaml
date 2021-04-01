@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-cis-scan
+  name: policy-e8-scan
   namespace: openshift-compliance
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
@@ -15,7 +15,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: compliance-cis-scan
+          name: compliance-e8-scan
         spec:
           remediationAction: enforce
           severity: high
@@ -25,15 +25,15 @@ spec:
                 apiVersion: compliance.openshift.io/v1alpha1
                 kind: ScanSettingBinding
                 metadata:
-                  name: cis
+                  name: e8 
                   namespace: openshift-compliance
                 profiles:
                 - apiGroup: compliance.openshift.io/v1alpha1
                   kind: Profile
-                  name: ocp4-cis
+                  name: ocp4-e8
                 - apiGroup: compliance.openshift.io/v1alpha1
                   kind: Profile
-                  name: ocp4-cis-node
+                  name: rhcos4-e8
                 settingsRef:
                   apiGroup: compliance.openshift.io/v1alpha1
                   kind: ScanSetting
@@ -42,7 +42,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: compliance-suite-cis
+          name: compliance-suite-e8
         spec:
           remediationAction: inform
           severity: high
@@ -52,7 +52,7 @@ spec:
                 apiVersion: compliance.openshift.io/v1alpha1
                 kind: ComplianceSuite
                 metadata:
-                  name: cis
+                  name: e8
                   namespace: openshift-compliance
                 status:
                   phase: DONE
@@ -60,7 +60,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: compliance-suite-cis-results
+          name: compliance-suite-e8-results
         spec:
           remediationAction: inform
           severity: high
@@ -73,5 +73,5 @@ spec:
                   namespace: openshift-compliance
                   labels:
                     compliance.openshift.io/check-status: FAIL
-                    compliance.openshift.io/suite: cis
+                    compliance.openshift.io/suite: e8
                     compliance.openshift.io/check-severity: high
