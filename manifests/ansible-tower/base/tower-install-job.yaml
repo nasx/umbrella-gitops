@@ -25,6 +25,7 @@ spec:
             - /bin/bash
             - -c
             - |
+              find /var/secrets
               mkdir -p $TOWER_INSTALLER_DIRECTORY
               TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
               curl -sL $TOWER_INSTALLER_URL | tar -xvzf - -C $TOWER_INSTALLER_DIRECTORY --strip 1
