@@ -8,3 +8,4 @@ resources:
   - ansible-tower-install-sa.yaml
   - ansible-tower-install-sa-clusterrole.yaml
   - ansible-tower-install-sa-clusterrolebinding.yaml
+  - tower-install-job.yaml

@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  labels:
+    run: tower-install-job
+  name: tower-install-job
+  namespace: ansible-tower
+spec:
+  template:
+    spec:
+      activeDeadlineSeconds: 600
+      containers:
+        - image: image-registry.openshift-image-registry.svc:5000/ansible-runner/ansible-runner:latest
+          env:
+            - name: TOWER_INSTALLER_DIRECTORY
+              value: "/tmp/ansible-tower"
+            - name: TOWER_INSTALLER_URL
+              value: "https://releases.ansible.com/ansible-tower/setup_openshift/ansible-tower-openshift-setup-latest.tar.gz"
+            - name: INVENTORY_FILE
+              value: /var/secrets/inventory/inventory
+          command:
+            - /bin/bash
+            - -c
+            - |
+              mkdir -p $TOWER_INSTALLER_DIRECTORY
+              TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+              curl -sL $TOWER_INSTALLER_URL | tar -xvzf -C $TOWER_INSTALLER_DIRECTORY  --strip 1 -
+              $TOWER_INSTALLER_DIRECTORY/setup_openshift.sh -e openshift_token=$TOKEN -e openshift_pg_pvc_name=postgres-pvc
+          imagePullPolicy: Always
+          name: tower-install-job
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: ansible-tower-install-sa
+      serviceAccountName: ansible-tower-install-sa
+      terminationGracePeriodSeconds: 30
