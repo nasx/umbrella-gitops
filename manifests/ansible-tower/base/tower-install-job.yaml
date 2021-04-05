@@ -29,8 +29,17 @@ spec:
               TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
               curl -sL $TOWER_INSTALLER_URL | tar -xvzf - -C $TOWER_INSTALLER_DIRECTORY --strip 1
               $TOWER_INSTALLER_DIRECTORY/setup_openshift.sh -i $INVENTORY_FILE -e openshift_token=$TOKEN -e openshift_pg_pvc_name=postgres-pvc
+          volumeMounts:
+            - name: inventory
+              mountPath: /var/secrets/inventory
+              readOnly: yes
           imagePullPolicy: Always
           name: tower-install-job
+      volumes:
+        - name: inventory
+          secret:
+            secretName: inventory
+            defaultMode: 0400
       dnsPolicy: ClusterFirst
       restartPolicy: OnFailure
       serviceAccount: ansible-tower-install-sa
