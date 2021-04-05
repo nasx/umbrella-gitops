@@ -27,7 +27,7 @@ spec:
             - |
               mkdir -p $TOWER_INSTALLER_DIRECTORY
               TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-              curl -sL $TOWER_INSTALLER_URL | tar -xvzf -C $TOWER_INSTALLER_DIRECTORY  --strip 1 -
+              curl -sL $TOWER_INSTALLER_URL | tar -xvzf - -C $TOWER_INSTALLER_DIRECTORY --strip 1
               $TOWER_INSTALLER_DIRECTORY/setup_openshift.sh -e openshift_token=$TOKEN -e openshift_pg_pvc_name=postgres-pvc
           imagePullPolicy: Always
           name: tower-install-job
