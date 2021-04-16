@@ -1,0 +1,61 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  labels:
+    machine.openshift.io/cluster-api-cluster: "{{ cluster_id }}"
+  name: "{{ cluster_id }}-windows-worker-{{ aws_zone }}"
+  namespace: openshift-machine-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: "{{ cluster_id }}"
+      machine.openshift.io/cluster-api-machineset: "{{ cluster_id }}-windows-worker-{{ aws_zone }}"
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: "{{ cluster_id }}"
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: "{{ cluster_id }}-windows-worker-{{ aws_zone }}"
+        machine.openshift.io/os-id: Windows
+    spec:
+      metadata:
+        labels:
+          node-role.kubernetes.io/worker: ""
+      providerSpec:
+        value:
+          ami:
+            id: "{{ windows_ami_id }}"
+          apiVersion: awsproviderconfig.openshift.io/v1beta1
+          blockDevices:
+            - ebs:
+                iops: 0
+                volumeSize: 120
+                volumeType: gp2
+          credentialsSecret:
+            name: aws-cloud-credentials
+          deviceIndex: 0
+          iamInstanceProfile:
+            id: "{{ cluster_id }}-worker-profile"
+          instanceType: "{{ aws_instance_type }}"
+          kind: AWSMachineProviderConfig
+          placement:
+            availabilityZone: "{{ aws_zone }}"
+            region: "{{ aws_region }}"
+          securityGroups:
+            - filters:
+                - name: tag:Name
+                  values:
+                    - "{{ cluster_id }}-worker-sg"
+          subnet:
+            filters:
+              - name: tag:Name
+                values:
+                  - "{{ cluster_id }}-private-{{ aws_zone }}"
+          tags:
+            - name: "kubernetes.io/cluster/{{ cluster_id }}"
+              value: owned
+          userDataSecret:
+            name: windows-user-data
+            namespace: openshift-machine-api

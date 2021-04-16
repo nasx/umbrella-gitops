@@ -5,7 +5,7 @@ metadata:
   namespace: ansible-runner
 rules:
   - apiGroups:
-      - ""
+      - "*"
     resources:
       - pods
       - services
@@ -35,3 +35,17 @@ rules:
       - watch
       - update
       - patch
+  - apiGroups:
+      - config.openshift.io
+    resources:
+      - infrastructure
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - machine.openshift.io
+    resources:
+      - machinesets
+    verbs:
+      - "*"

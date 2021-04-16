@@ -1,0 +1,4 @@
+- name: Create Windows MachineSet for AWS
+  hosts: localhost
+  roles:
+    - role: windows-machine-set-aws
