@@ -24,6 +24,14 @@
     name: cluster
   register: cluster_info
 
-- name: Debug
+- name: Debug Infrastructure Name
   ansible.builtin.debug:
-    var: cluster_info
+    msg: "{{ cluster_info.resources[0].status.infrastructureName }}"
+    verbosity: 1
+
+- name: Set Cluster infrastructure_name
+  community.kubernetes.k8s:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    definition: "{{ lookup('template', 'templates/machineset.yaml.j2') | from_yaml }}"
+    state: present

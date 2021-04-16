@@ -2,22 +2,22 @@ apiVersion: machine.openshift.io/v1beta1
 kind: MachineSet
 metadata:
   labels:
-    machine.openshift.io/cluster-api-cluster: "{{ cluster_id }}"
-  name: "{{ cluster_id }}-windows-worker-{{ aws_zone }}"
+    machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
+  name: "{{ cluster_info.resources[0].status.infrastructureName }}-windows-worker-{{ aws_zone }}"
   namespace: openshift-machine-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      machine.openshift.io/cluster-api-cluster: "{{ cluster_id }}"
-      machine.openshift.io/cluster-api-machineset: "{{ cluster_id }}-windows-worker-{{ aws_zone }}"
+      machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
+      machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-windows-worker-{{ aws_zone }}"
   template:
     metadata:
       labels:
-        machine.openshift.io/cluster-api-cluster: "{{ cluster_id }}"
+        machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
         machine.openshift.io/cluster-api-machine-role: worker
         machine.openshift.io/cluster-api-machine-type: worker
-        machine.openshift.io/cluster-api-machineset: "{{ cluster_id }}-windows-worker-{{ aws_zone }}"
+        machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-windows-worker-{{ aws_zone }}"
         machine.openshift.io/os-id: Windows
     spec:
       metadata:
@@ -37,7 +37,7 @@ spec:
             name: aws-cloud-credentials
           deviceIndex: 0
           iamInstanceProfile:
-            id: "{{ cluster_id }}-worker-profile"
+            id: "{{ cluster_info.resources[0].status.infrastructureName }}-worker-profile"
           instanceType: "{{ aws_instance_type }}"
           kind: AWSMachineProviderConfig
           placement:
@@ -47,14 +47,13 @@ spec:
             - filters:
                 - name: tag:Name
                   values:
-                    - "{{ cluster_id }}-worker-sg"
+                    - "{{ cluster_info.resources[0].status.infrastructureName }}-worker-sg"
           subnet:
             filters:
               - name: tag:Name
-                values:
-                  - "{{ cluster_id }}-private-{{ aws_zone }}"
+                values: {{ aws_subnets }}
           tags:
-            - name: "kubernetes.io/cluster/{{ cluster_id }}"
+            - name: "kubernetes.io/cluster/{{ cluster_info.resources[0].status.infrastructureName }}"
               value: owned
           userDataSecret:
             name: windows-user-data

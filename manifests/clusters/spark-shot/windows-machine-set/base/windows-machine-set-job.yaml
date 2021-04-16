@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  labels:
+    run: windows-machine-set-job
+  name: windows-machine-set-job
+  namespace: ansible-runner
+spec:
+  template:
+    spec:
+      activeDeadlineSeconds: 600
+      containers:
+        - image: image-registry.openshift-image-registry.svc:5000/ansible-runner/ansible-runner:latest
+          env:
+            - name: GIT_DIRECTORY
+              value: "/tmp/git/umbrella-gitops"
+            - name: GIT_URL
+              value: "https://github.com/nasx/umbrella-gitops.git"
+            - name: ANSIBLE_PLAYBOOK
+              value: "ansible/playbooks/windows-machine-set-aws.yaml"
+            - name: ANSIBLE_CONFIG
+              value: $GIT_DIRECTORY/ansible/ansible.cfg
+          command:
+            - /bin/bash
+            - -c
+            - |
+              mkdir -p $GIT_DIRECTORY
+              git clone $GIT_URL $GIT_DIRECTORY
+              ansible-galaxy collection install -r $GIT_DIRECTORY/ansible/collections/requirements.yaml
+              ansible-playbook $GIT_DIRECTORY/$ANSIBLE_PLAYBOOK
+          imagePullPolicy: Always
+          name: ansible-runner
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: ansible-runner-sa
+      serviceAccountName: ansible-runner-sa
+      terminationGracePeriodSeconds: 30
