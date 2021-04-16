@@ -10,9 +10,7 @@ spec:
     dockerfile: |
       FROM registry.access.redhat.com/ubi8/python-38
       USER 0
-      RUN cp /var/run/secrets/kubernetes.io/serviceaccount/ca.crt /etc/pki/ca-trust/source/openshift-ca.crt && \
-          update-ca-trust && \
-          dnf update -y && \
+      RUN dnf update -y && \
           pip install --upgrade pip && \
           pip install openshift && \
           pip install jmespath && \
