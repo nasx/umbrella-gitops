@@ -4,6 +4,8 @@ metadata:
   name: ansible-runner-clusterrole
   namespace: ansible-runner
 rules:
+  - apiGroups:
+      - "*"
     resources:
       - pods
       - services
