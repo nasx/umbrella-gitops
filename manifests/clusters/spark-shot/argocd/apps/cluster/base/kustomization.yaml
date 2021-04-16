@@ -8,3 +8,4 @@ resources:
   - apiserver-app.yaml
   - oauth-app.yaml
   - compliance-operator-app.yaml
+  - windows-machine-config-operator.yaml
