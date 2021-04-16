@@ -5,3 +5,4 @@ resources:
   - api-cert-sealed.yaml
   - oauth-ldap-bind-sealed.yaml
   - wildcard-cert-sealed.yaml
+  - cloud-private-key-sealed.yaml
