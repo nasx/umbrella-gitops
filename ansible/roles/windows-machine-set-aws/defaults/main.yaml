@@ -6,6 +6,16 @@ aws_instance_type: m5a.large
 aws_subnets:
   - ckeller-acm-openshift-vpn-us-east-1a-private
 
+aws_tags:
+  - name: "kubernetes.io/cluster/{{ cluster_info.resources[0].status.infrastructureName }}"
+    value: owned
+  - name: Owner
+    value: ckeller@redhat.com
+  - name: DeleteBy
+    value: NEVER
+  - name: AlwaysUp
+    value: true
+
 # Microsoft Windows Server 2019 Base with Containers
 windows_ami_id: ami-0e232a0dc0468fb1f
 
