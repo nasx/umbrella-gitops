@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  annotations:
-    argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+#  annotations:
+#    argocd.argoproj.io/hook: PostSync
+#    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
   labels:
     run: windows-machine-set-us-east-1a-job
   name: windows-machine-set-us-east-1a-job
