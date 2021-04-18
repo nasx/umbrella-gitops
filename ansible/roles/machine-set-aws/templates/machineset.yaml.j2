@@ -1,0 +1,60 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  labels:
+    machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
+  name: "{{ cluster_info.resources[0].status.infrastructureName }}-windows-worker-{{ aws_zone }}"
+  namespace: openshift-machine-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
+      machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-windows-worker-{{ aws_zone }}"
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-windows-worker-{{ aws_zone }}"
+        machine.openshift.io/os-id: Windows
+    spec:
+      metadata:
+        labels:
+          node-role.kubernetes.io/worker: ""
+      providerSpec:
+        value:
+          ami:
+            id: "{{ windows_ami_id }}"
+          apiVersion: awsproviderconfig.openshift.io/v1beta1
+          blockDevices:
+            - ebs:
+                iops: 0
+                volumeSize: 120
+                volumeType: gp2
+          credentialsSecret:
+            name: aws-cloud-credentials
+          deviceIndex: 0
+          iamInstanceProfile:
+            id: "{{ cluster_info.resources[0].status.infrastructureName }}-worker-profile"
+          instanceType: "{{ aws_instance_type }}"
+          kind: AWSMachineProviderConfig
+          placement:
+            availabilityZone: "{{ aws_zone }}"
+            region: "{{ aws_region }}"
+          securityGroups:
+            - filters:
+                - name: tag:Name
+                  values:
+                    - "{{ cluster_info.resources[0].status.infrastructureName }}-worker-sg"
+          subnet:
+            filters:
+              - name: tag:Name
+                values: {{ aws_subnets }}
+          tags:
+            - name: "kubernetes.io/cluster/{{ cluster_info.resources[0].status.infrastructureName }}"
+              value: owned
+          userDataSecret:
+            name: windows-user-data
+            namespace: openshift-machine-api
