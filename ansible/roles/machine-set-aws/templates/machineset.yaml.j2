@@ -6,7 +6,7 @@ metadata:
   name: "{{ cluster_info.resources[0].status.infrastructureName }}-{{ item.name }}-{{ item.zone }}"
   namespace: openshift-machine-api
 spec:
-  replicas: 1
+  replicas: "{{ item.replicas }}"
   selector:
     matchLabels:
       machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
