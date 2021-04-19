@@ -3,46 +3,42 @@ kind: MachineSet
 metadata:
   labels:
     machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
-  name: "{{ cluster_info.resources[0].status.infrastructureName }}-windows-worker-{{ aws_zone }}"
+  name: "{{ cluster_info.resources[0].status.infrastructureName }}-{{ item.name }}-{{ item.zone }}"
   namespace: openshift-machine-api
 spec:
   replicas: 1
   selector:
     matchLabels:
       machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
-      machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-windows-worker-{{ aws_zone }}"
+      machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-{{ item.name }}-{{ item.zone }}"
   template:
     metadata:
       labels:
         machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
-        machine.openshift.io/cluster-api-machine-role: worker
-        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machine-role: "{{ item.machine_role }}"
+        machine.openshift.io/cluster-api-machine-type: "{{ item.machine_type }}"
         machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-windows-worker-{{ aws_zone }}"
-        machine.openshift.io/os-id: Windows
+        machine.openshift.io/os-id: "{{ item.os }}"
     spec:
       metadata:
         labels:
-          node-role.kubernetes.io/worker: ""
+          {{ item.node_role }}: ""
       providerSpec:
         value:
           ami:
             id: "{{ windows_ami_id }}"
           apiVersion: awsproviderconfig.openshift.io/v1beta1
-          blockDevices:
-            - ebs:
-                iops: 0
-                volumeSize: 120
-                volumeType: gp2
+          blockDevices: {{ item.block-devices }}
           credentialsSecret:
             name: aws-cloud-credentials
           deviceIndex: 0
           iamInstanceProfile:
             id: "{{ cluster_info.resources[0].status.infrastructureName }}-worker-profile"
-          instanceType: "{{ aws_instance_type }}"
+          instanceType: "{{ item.instance_type }}"
           kind: AWSMachineProviderConfig
           placement:
-            availabilityZone: "{{ aws_zone }}"
-            region: "{{ aws_region }}"
+            availabilityZone: "{{ item.zone }}"
+            region: "{{ item.region }}"
           securityGroups:
             - filters:
                 - name: tag:Name
@@ -52,9 +48,7 @@ spec:
             filters:
               - name: tag:Name
                 values: {{ aws_subnets }}
-          tags:
-            - name: "kubernetes.io/cluster/{{ cluster_info.resources[0].status.infrastructureName }}"
-              value: owned
+          tags: {{ item.tags }}
           userDataSecret:
             name: windows-user-data
             namespace: openshift-machine-api

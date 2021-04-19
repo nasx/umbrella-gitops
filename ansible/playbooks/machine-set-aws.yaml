@@ -1,0 +1,4 @@
+- name: Create MachineSets for AWS
+  hosts: localhost
+  roles:
+    - role: machine-set-aws

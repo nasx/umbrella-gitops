@@ -2,8 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   labels:
-    run: windows-machine-set-us-east-1a-job
-  name: windows-machine-set-us-east-1a-job
+    run: machine-set-job
+  name: machine-set-job
   namespace: ansible-runner
 spec:
   template:
@@ -17,7 +17,7 @@ spec:
             - name: GIT_URL
               value: "https://github.com/nasx/umbrella-gitops.git"
             - name: ANSIBLE_PLAYBOOK
-              value: "ansible/playbooks/windows-machine-set-aws.yaml"
+              value: "ansible/playbooks/machine-set-aws.yaml"
             - name: ANSIBLE_CONFIG
               value: $GIT_DIRECTORY/ansible/ansible.cfg
           command:

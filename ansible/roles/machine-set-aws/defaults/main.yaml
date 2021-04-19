@@ -12,7 +12,7 @@ machinesets:
     instance_type: m5a.large
     machine_role: worker
     machine_type: worker
-    name: windows-worker-us-east-1a
+    name: windows-worker
     node_role: node-role.kubernetes.io/worker
     os: Windows
     region: us-east-1
@@ -35,14 +35,14 @@ machinesets:
         iops: 0
         volumeSize: 120
         volumeType: gp2
-    instance_type: m5a.large
-    machine_role: worker
-    machine_type: worker
-    name: windows-worker-us-east-1a
-    node_role: node-role.kubernetes.io/worker
-    os: Windows
+    instance_type: m5a.2xlarge
+    machine_role: ocs
+    machine_type: ocs
+    name: ocs-node
+    node_role: node-role.kubernetes.io/ocs
+    os: linux
     region: us-east-1
-    replicas: 1
+    replicas: 3
     subnets:
       - ckeller-acm-openshift-vpn-us-east-1a-private
     tags:
@@ -55,28 +55,3 @@ machinesets:
       - name: AlwaysUp
         value: true
     zone: us-east-1a
-
-  
-
-aws_region: us-east-1
-aws_zone: us-east-1a
-
-aws_instance_type: m5a.large
-
-aws_subnets:
-  - ckeller-acm-openshift-vpn-us-east-1a-private
-
-aws_tags:
-  - name: "kubernetes.io/cluster/{{ cluster_info.resources[0].status.infrastructureName }}"
-    value: owned
-  - name: Owner
-    value: ckeller@redhat.com
-  - name: DeleteBy
-    value: NEVER
-  - name: AlwaysUp
-    value: true
-
-# Microsoft Windows Server 2019 Base with Containers
-windows_ami_id: ami-0e232a0dc0468fb1f
-
-wmco_namespace: openshift-windows-machine-config-operator
