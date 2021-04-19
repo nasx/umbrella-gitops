@@ -1,0 +1,22 @@
+- name: Query Cluster Infrastructure Name
+  community.kubernetes.k8s_info:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    api_version: config.openshift.io/v1
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    kind: Infrastructure
+    name: cluster
+  register: cluster_info
+
+- name: Debug Infrastructure Name
+  ansible.builtin.debug:
+    msg: "{{ cluster_info.resources[0].status.infrastructureName }}"
+    verbosity: 1
+
+- name: Create Machine Sets
+  community.kubernetes.k8s:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    definition: "{{ lookup('template', 'templates/machineset.yaml.j2') | from_yaml }}"
+    state: present
+  loop: "{{ machinesets }}"
