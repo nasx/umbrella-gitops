@@ -10,5 +10,5 @@ resources:
   - compliance-operator-app.yaml
   - windows-machine-config-operator-app.yaml
   - ansible-runner-app.yaml
-  - machine-set-windows-app.yaml
+  - machine-set-aws-app.yaml
   - proxy-app.yaml
