@@ -17,7 +17,7 @@ spec:
         machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
         machine.openshift.io/cluster-api-machine-role: "{{ item.machine_role }}"
         machine.openshift.io/cluster-api-machine-type: "{{ item.machine_type }}"
-        machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-windows-worker-{{ aws_zone }}"
+        machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-{{ item.name }}-{{ item.zone }}"
         machine.openshift.io/os-id: "{{ item.os }}"
     spec:
       metadata:
@@ -26,7 +26,7 @@ spec:
       providerSpec:
         value:
           ami:
-            id: "{{ windows_ami_id }}"
+            id: "{{ item.ami }}"
           apiVersion: awsproviderconfig.openshift.io/v1beta1
           blockDevices: {{ item.block-devices }}
           credentialsSecret:
@@ -50,5 +50,5 @@ spec:
                 values: {{ aws_subnets }}
           tags: {{ item.tags }}
           userDataSecret:
-            name: windows-user-data
+            name: "{{ item.user_data_secret }}"
             namespace: openshift-machine-api

@@ -28,6 +28,7 @@ machinesets:
         value: NEVER
       - name: AlwaysUp
         value: true
+    user_data_secret: windows-user-data
     zone: us-east-1a
   - ami: ami-046fe691f52a953f9
     blockDevices:
@@ -54,4 +55,5 @@ machinesets:
         value: NEVER
       - name: AlwaysUp
         value: true
+    user_data_secret: worker-user-data
     zone: us-east-1a
