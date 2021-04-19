@@ -47,7 +47,7 @@ spec:
           subnet:
             filters:
               - name: tag:Name
-                values: {{ aws_subnets }}
+                values: {{ item.subnets }}
           tags: {{ item.tags }}
           userDataSecret:
             name: "{{ item.user_data_secret }}"
