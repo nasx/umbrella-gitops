@@ -28,7 +28,7 @@ spec:
           ami:
             id: "{{ item.ami }}"
           apiVersion: awsproviderconfig.openshift.io/v1beta1
-          blockDevices: {{ item.block-devices }}
+          blockDevices: {{ item.blockDevices }}
           credentialsSecret:
             name: aws-cloud-credentials
           deviceIndex: 0
