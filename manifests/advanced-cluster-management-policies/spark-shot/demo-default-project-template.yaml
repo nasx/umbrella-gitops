@@ -1,0 +1,100 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: spark-shot-default-project-template
+  namespace: umbrella-gitops
+  annotations:
+    policy.open-cluster-management.io/standards: NIST-CSF
+    policy.open-cluster-management.io/categories: PR.IP Information Protection Processes and Procedures
+    policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-default-project-template
+      spec:
+        remediationAction: enforce
+        severity: High
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: template.openshift.io/v1
+            kind: Template
+            metadata:
+              creationTimestamp: null
+              name: default-project-request
+              namespace: openshift-config
+            objects:
+            - apiVersion: project.openshift.io/v1
+              kind: Project
+              metadata:
+                annotations:
+                  openshift.io/description: ${PROJECT_DESCRIPTION}
+                  openshift.io/display-name: ${PROJECT_DISPLAYNAME}
+                  openshift.io/requester: ${PROJECT_REQUESTING_USER}
+                creationTimestamp: null
+                name: ${PROJECT_NAME}
+              spec: {}
+              status: {}
+            - apiVersion: rbac.authorization.k8s.io/v1
+              kind: RoleBinding
+              metadata:
+                creationTimestamp: null
+                name: admin
+                namespace: ${PROJECT_NAME}
+              roleRef:
+                apiGroup: rbac.authorization.k8s.io
+                kind: ClusterRole
+                name: admin
+              subjects:
+              - apiGroup: rbac.authorization.k8s.io
+                kind: User
+                name: ${PROJECT_ADMIN_USER}
+            - apiVersion: v1
+              kind: "LimitRange"
+              metadata:
+                name: ${PROJECT_NAME}-limits
+              spec:
+                limits:
+                  - type: "Pod"
+                    max:
+                      memory: "24Gi"
+                  - type: "Container"
+                    max:
+                      memory: "16Gi"
+                    default:
+                      memory: "2Gi"
+                    defaultRequest:
+                      memory: "1Gi"
+            parameters:
+            - name: PROJECT_NAME
+            - name: PROJECT_DISPLAYNAME
+            - name: PROJECT_DESCRIPTION
+            - name: PROJECT_ADMIN_USER
+            - name: PROJECT_REQUESTING_USER
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-default-project-config
+      spec:
+        remediationAction: enforce
+        severity: High
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: config.openshift.io/v1
+            kind: Project
+            metadata:
+              annotations:
+                include.release.openshift.io/self-managed-high-availability: "true"
+                include.release.openshift.io/single-node-developer: "true"
+                release.openshift.io/create-only: "true"
+              name: cluster
+            spec:
+              projectRequestTemplate:
+                name: default-project-request

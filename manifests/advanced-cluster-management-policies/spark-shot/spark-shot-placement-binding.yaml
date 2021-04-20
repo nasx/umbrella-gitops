@@ -1,0 +1,31 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: spark-shot-placement-binding
+  namespace: umbrella-gitops
+placementRef:
+  name: spark-shot-placement-rule
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: spark-shot-remove-self-provisioners
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+- name: spark-shot-default-project-template
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+- name: spark-shot-ingress-controller-config
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+- name: spark-shot-oauth-ldap-config
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+- name: spark-shot-cluster-admins
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+- name: spark-shot-apiserver-config
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+- name: spark-shot-amq-streams
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

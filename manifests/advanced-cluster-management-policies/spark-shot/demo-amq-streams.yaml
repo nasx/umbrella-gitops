@@ -1,0 +1,94 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: spark-shot-amq-streams
+  namespace: umbrella-gitops
+  annotations:
+    policy.open-cluster-management.io/standards: NIST-CSF
+    policy.open-cluster-management.io/categories: PR.IP Information Protection Processes and Procedures
+    policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-amq-streams-operator-subscription
+      spec:
+        remediationAction: enforce
+        severity: High
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: operators.coreos.com/v1alpha1
+            kind: Subscription
+            metadata:
+              name: amq-streams-subscription
+              namespace: openshift-operators
+            spec:
+              channel: stable
+              name: amq-streams
+              source: redhat-operators
+              sourceNamespace: openshift-marketplace
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-amq-streams-kafka-cluster-namespace
+      spec:
+        remediationAction: enforce
+        severity: High
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: v1
+            kind: Namespace
+            metadata:
+              name: kafka-cluster
+            spec: {}
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-amq-streams-kafka-cluster
+      spec:
+        remediationAction: enforce
+        severity: High
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: kafka.strimzi.io/v1beta2
+            kind: Kafka
+            metadata:
+              name: my-cluster
+              namespace: kafka-cluster
+            spec:
+              kafka:
+                config:
+                  offsets.topic.replication.factor: 3
+                  transaction.state.log.replication.factor: 3
+                  transaction.state.log.min.isr: 2
+                  log.message.format.version: '2.7'
+                  inter.broker.protocol.version: '2.7'
+                version: 2.7.0
+                storage:
+                  type: ephemeral
+                replicas: 3
+                listeners:
+                  - name: plain
+                    port: 9092
+                    type: internal
+                    tls: false
+                  - name: tls
+                    port: 9093
+                    type: internal
+                    tls: true
+              entityOperator:
+                topicOperator: {}
+                userOperator: {}
+              zookeeper:
+                storage:
+                  type: ephemeral
+                replicas: 3
