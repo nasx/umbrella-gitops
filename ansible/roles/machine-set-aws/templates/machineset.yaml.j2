@@ -18,7 +18,9 @@ spec:
         machine.openshift.io/cluster-api-machine-role: "{{ item.machine_role }}"
         machine.openshift.io/cluster-api-machine-type: "{{ item.machine_type }}"
         machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-{{ item.name }}-{{ item.zone }}"
-        machine.openshift.io/os-id: "{{ item.os }}"
+{% if item.os is defined %}
+        machine.openshift.io/os-id: {{ item.os }}
+{% endif %}
     spec:
       metadata:
         labels: {{ item.node_labels }}

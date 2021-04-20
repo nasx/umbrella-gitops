@@ -37,14 +37,13 @@ machinesets:
         iops: 0
         volumeSize: 120
         volumeType: gp2
-    instance_type: m5a.2xlarge
-    machine_role: ocs
+    instance_type: m5.2xlarge
+    machine_role: worker
     machine_type: worker
-    name: ocs-node
+    name: ocs
     node_labels:
       cluster.ocs.openshift.io/openshift-storage: ""
-      node-role.kubernetes.io/ocs: ""
-    os: linux
+      node-role.kubernetes.io/infra: ""
     region: us-east-1
     replicas: 3
     subnets:
