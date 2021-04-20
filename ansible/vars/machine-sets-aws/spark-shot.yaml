@@ -1,6 +1,6 @@
 # AMI ID References:
 # ami-0e232a0dc0468fb1f - Microsoft Windows Server 2019 Base with Containers
-# ami-046fe691f52a953f9 - Red Hat CoreOS - OpenShift 4 410.8.20190520.0
+# ami-0d5f9982f029fbc14 - Red Hat CoreOS - OpenShift 4 rhcos-47.83.202102090044-0
 
 machinesets:
   - ami: ami-0e232a0dc0468fb1f
@@ -31,7 +31,7 @@ machinesets:
         value: true
     user_data_secret: windows-user-data
     zone: us-east-1a
-  - ami: ami-046fe691f52a953f9
+  - ami: ami-0d5f9982f029fbc14
     blockDevices:
     - ebs:
         iops: 0
