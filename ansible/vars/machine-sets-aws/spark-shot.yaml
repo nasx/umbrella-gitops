@@ -13,7 +13,8 @@ machinesets:
     machine_role: worker
     machine_type: worker
     name: windows-worker
-    node_role: node-role.kubernetes.io/worker
+    node_labels:
+      node-role.kubernetes.io/worker: ""
     os: Windows
     region: us-east-1
     replicas: 1
@@ -38,9 +39,11 @@ machinesets:
         volumeType: gp2
     instance_type: m5a.2xlarge
     machine_role: ocs
-    machine_type: ocs
+    machine_type: worker
     name: ocs-node
-    node_role: node-role.kubernetes.io/ocs
+    node_labels:
+      cluster.ocs.openshift.io/openshift-storage: ""
+      node-role.kubernetes.io/ocs: ""
     os: linux
     region: us-east-1
     replicas: 3

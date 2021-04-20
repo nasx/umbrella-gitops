@@ -21,8 +21,7 @@ spec:
         machine.openshift.io/os-id: "{{ item.os }}"
     spec:
       metadata:
-        labels:
-          {{ item.node_role }}: ""
+        labels: {{ item.node_labels }}
       providerSpec:
         value:
           ami:
