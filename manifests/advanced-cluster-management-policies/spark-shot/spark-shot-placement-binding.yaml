@@ -29,3 +29,6 @@ subjects:
 - name: spark-shot-amq-streams
   kind: Policy
   apiGroup: policy.open-cluster-management.io
+- name: spark-shot-registry-whitelist
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
