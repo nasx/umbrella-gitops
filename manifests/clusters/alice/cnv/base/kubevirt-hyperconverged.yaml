@@ -11,7 +11,7 @@ metadata:
   labels:
     app: kubevirt-hyperconverged
 spec:
-  bareMetalPlatform: "false"
+  bareMetalPlatform: false
   infra: {}
   version: v2.6.1
   workloads: {}
