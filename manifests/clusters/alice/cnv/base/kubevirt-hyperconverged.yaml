@@ -7,5 +7,11 @@ metadata:
     argocd.argoproj.io/sync-wave: "3"
     argocd.argoproj.io/compare-options: IgnoreExtraneous
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    deployOVS: false
+  labels:
+    app: kubevirt-hyperconverged
 spec:
   bareMetalPlatform: false
+  infra: {}
+  version: v2.6.1
+  workloads: {}
