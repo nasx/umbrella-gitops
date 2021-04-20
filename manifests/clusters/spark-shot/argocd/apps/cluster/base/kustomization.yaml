@@ -12,3 +12,4 @@ resources:
   - ansible-runner-app.yaml
   - machine-set-aws-app.yaml
   - proxy-app.yaml
+  - machine-config-pools-app.yaml

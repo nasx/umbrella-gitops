@@ -20,6 +20,8 @@ spec:
               value: "ansible/playbooks/machine-set-aws.yaml"
             - name: ANSIBLE_CONFIG
               value: $GIT_DIRECTORY/ansible/ansible.cfg
+            - name: MACHINE_SETS_VARS_FILE
+              value: $GIT_DIRECTORY/ansible/vars/machine-sets-aws/spark-shot.yaml
           command:
             - /bin/bash
             - -c
@@ -27,7 +29,7 @@ spec:
               mkdir -p $GIT_DIRECTORY
               git clone $GIT_URL $GIT_DIRECTORY
               ansible-galaxy collection install -r $GIT_DIRECTORY/ansible/collections/requirements.yaml
-              ansible-playbook $GIT_DIRECTORY/$ANSIBLE_PLAYBOOK
+              ansible-playbook $GIT_DIRECTORY/$ANSIBLE_PLAYBOOK -e @$MACHINE_SETS_VARS_FILE
           imagePullPolicy: Always
           name: ansible-runner
       dnsPolicy: ClusterFirst
