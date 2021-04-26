@@ -3,6 +3,5 @@ kind: Kustomization
 
 resources:
   - argocd.yaml
-  - argocd-setup-job.yaml
   - argocd-clusterrolebinding.yaml
   - argocd-cluster-config-project.yaml

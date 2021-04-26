@@ -27,10 +27,10 @@ Argo CD will be deployed using the OpenShift GitOps operator. Install the operat
 oc apply -k manifests/bootstrap/openshift-gitops-operator/base
 ```
 
-Next deploy Argo CD using the OpenShift GitOps operator.
+By default, the operator will deploy an instance of Argo CD when it is installed. We will want to make some changes to that deployment though (like enable OpenShift OAuth ingegration).
 
 ```shell
-until oc apply -k manifests/bootstrap/openshift-gitops/base; do sleep 5; done
+oc apply -k manifests/bootstrap/openshift-gitops/base
 ```
 
 Finally, we can configure our cluster by deploying the base application (app of apps methodology). The base application will in turn deploy all other applications/configurations.

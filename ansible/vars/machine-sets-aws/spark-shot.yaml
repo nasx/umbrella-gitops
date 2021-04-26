@@ -40,7 +40,7 @@ machinesets:
     instance_type: m5.2xlarge
     machine_role: worker
     machine_type: worker
-    name: ocs
+    name: infra
     node_labels:
       cluster.ocs.openshift.io/openshift-storage: ""
       node-role.kubernetes.io/infra: ""

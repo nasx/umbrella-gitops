@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ArgoCD
 metadata:
-  name: argocd-cluster
+  name: openshift-gitops
   namespace: openshift-gitops
 spec:
   rbac:
@@ -9,6 +9,8 @@ spec:
   server:
     route:
       enabled: true
+  dex:
+    openShiftOAuth: true
   resourceCustomizations: |
     route.openshift.io/Route:
       ignoreDifferences: |
@@ -22,3 +24,11 @@ spec:
       ignoreDifferences: |
         jsonPointers:
         - /spec/template/spec/containers/0/image
+  resourceExclusions: |
+    - apiGroups:
+      - tekton.dev
+      clusters:
+      - '*'
+      kinds:
+      - TaskRun
+      - PipelineRun
