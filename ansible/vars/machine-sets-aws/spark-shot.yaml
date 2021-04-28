@@ -1,9 +1,9 @@
 # AMI ID References:
-# ami-0e232a0dc0468fb1f - Microsoft Windows Server 2019 Base with Containers
+# ami-00878b15766f10fbf - Microsoft Windows Server 1909 Core Containers Latest 2021.02.10
 # ami-0d5f9982f029fbc14 - Red Hat CoreOS - OpenShift 4 rhcos-47.83.202102090044-0
 
 machinesets:
-  - ami: ami-0e232a0dc0468fb1f
+  - ami: ami-00878b15766f10fbf
     blockDevices:
     - ebs:
         iops: 0
