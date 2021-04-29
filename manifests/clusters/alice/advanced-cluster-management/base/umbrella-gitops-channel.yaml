@@ -4,6 +4,8 @@ kind: Channel
 metadata:
   name: umbrella-gitops
   namespace: umbrella-gitops
+  annotations:
+    argocd.argoproj.io/hook: PostSync
 spec:
   type: GitHub
   pathname: https://github.com/nasx/umbrella-gitops.git
