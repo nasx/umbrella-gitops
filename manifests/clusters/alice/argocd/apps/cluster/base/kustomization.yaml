@@ -11,8 +11,8 @@ resources:
   - ingress-controller-app.yaml
   - apiserver-app.yaml
   - oauth-app.yaml
-  - cnv-app.yaml
+#  - cnv-app.yaml
   - advanced-cluster-management-app.yaml
   - ansible-runner-app.yaml
-  - compliance-operator-app.yaml
-  - ansible-tower-app.yaml
+#  - compliance-operator-app.yaml
+#  - ansible-tower-app.yaml
