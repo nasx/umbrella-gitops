@@ -6,6 +6,7 @@ metadata:
   namespace: umbrella-gitops
   annotations:
     argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   type: GitHub
   pathname: https://github.com/nasx/umbrella-gitops.git
