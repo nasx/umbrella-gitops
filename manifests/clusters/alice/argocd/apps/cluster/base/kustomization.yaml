@@ -14,6 +14,7 @@ resources:
   - advanced-cluster-management-app.yaml
   - ansible-runner-app.yaml
   - windows-machine-config-operator-app.yaml
+  - vmware-storage-classes-app.yaml
 #  - cnv-app.yaml
 #  - compliance-operator-app.yaml
 #  - ansible-tower-app.yaml
