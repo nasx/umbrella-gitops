@@ -16,6 +16,6 @@ resources:
   - windows-machine-config-operator-app.yaml
   - vmware-storage-classes-app.yaml
   - cluster-monitoring-app.yaml
-#  - cnv-app.yaml
+  - cnv-app.yaml
 #  - compliance-operator-app.yaml
 #  - ansible-tower-app.yaml
