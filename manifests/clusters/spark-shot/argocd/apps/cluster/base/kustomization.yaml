@@ -7,9 +7,9 @@ resources:
   - ingress-controller-app.yaml
   - apiserver-app.yaml
   - oauth-app.yaml
-  - compliance-operator-app.yaml
-  - windows-machine-config-operator-app.yaml
   - ansible-runner-app.yaml
-  - machine-set-aws-app.yaml
   - proxy-app.yaml
+#  - compliance-operator-app.yaml
+#  - windows-machine-config-operator-app.yaml
+#  - machine-set-aws-app.yaml
 #  - machine-config-pools-app.yaml
