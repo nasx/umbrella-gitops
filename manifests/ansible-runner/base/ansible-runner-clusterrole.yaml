@@ -12,11 +12,7 @@ rules:
       - secrets
       - configmaps
     verbs:
-      - list
-      - get
-      - patch
-      - update
-      - watch
+      - "*"
   - apiGroups:
       - operator.open-cluster-management.io
     resources:
