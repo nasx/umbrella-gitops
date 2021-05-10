@@ -1,0 +1,96 @@
+- name: Wait for ACM Operator
+  community.kubernetes.k8s_info:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    api_version: v1
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    kind: Pod
+    namespace: "{{ acm_hub_namespace }}"
+    label_selectors:
+      - name=multiclusterhub-operator
+  register: pod
+  retries: 60
+  delay: 10
+  until:
+    - pod.resources[0].status.phase == "Running"
+
+- name: Query ACM Pull Secret
+  community.kubernetes.k8s_info:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    api_version: v1
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    kind: Secret
+    name: "{{ acm_pull_secret }}"
+    namespace: "{{ acm_hub_namespace }}"
+  register: secret
+
+- name: Debug
+  debug:
+    msg: "{{ secret.resources[0].data['.dockerconfigjson'] }}"
+
+- name: Create ACM Observability Pull Secret
+  community.kubernetes.k8s:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    state: present
+    namespace: "{{ acm_observability_namespace }}"
+    resource_definition:
+      apiVersion: v1
+      data:
+        .dockerconfigjson: "{{ secret.resources[0].data['.dockerconfigjson'] }}"
+      kind: Secret
+      metadata:
+        name: pull-secret
+        namespace: open-cluster-management
+      type: kubernetes.io/dockerconfigjson
+
+- name: Wait for ACM Observability OBC
+  community.kubernetes.k8s_info:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    api_version: objectbucket.io/v1alpha1
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    kind: ObjectBucketClaim
+    name: "{{ acm_observability_obc }}"
+    namespace: "{{ acm_observability_namespace }}"
+  register: obc
+  retries: 60
+  delay: 10
+  until:
+    - obc.resources[0].status.phase == "Bound"
+
+- name: Query ACM Observability OBC ConfigMap
+  community.kubernetes.k8s_info:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    api_version: v1
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    kind: ConfigMap
+    name: "{{ acm_observability_obc }}"
+    namespace: "{{ acm_observability_namespace }}"
+  register: obc_config_map
+
+- name: Query ACM Observability OBC Secret
+  community.kubernetes.k8s_info:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    api_version: v1
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    host: https://kubernetes.default.svc
+    kind: Secret
+    name: "{{ acm_observability_obc }}"
+    namespace: "{{ acm_observability_namespace }}"
+  register: obc_secret
+
+- name: Debug obc
+  debug:
+    var: obc
+
+- name: Debug secret
+  debug:
+    var: obc_secret
+
+- name: Debug config map
+  debug:
+    var: obc_config_map

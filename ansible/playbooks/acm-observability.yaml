@@ -1,0 +1,4 @@
+- name: Install ACM Observability
+  hosts: localhost
+  roles:
+    - role: acm-observability
