@@ -25,10 +25,6 @@
     namespace: "{{ acm_hub_namespace }}"
   register: secret
 
-- name: Debug
-  debug:
-    msg: "{{ secret.resources[0].data['.dockerconfigjson'] }}"
-
 - name: Create ACM Observability Pull Secret
   community.kubernetes.k8s:
     api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
@@ -83,14 +79,10 @@
     namespace: "{{ acm_observability_namespace }}"
   register: obc_secret
 
-- name: Debug obc
-  debug:
-    var: obc
-
-- name: Debug secret
-  debug:
-    var: obc_secret
-
-- name: Debug config map
-  debug:
-    var: obc_config_map
+- name: Create ACM Observability Thanos Config
+  community.kubernetes.k8s:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    definition: "{{ lookup('template', 'templates/thanos-secret.j2') | from_yaml }}"
+    host: https://kubernetes.default.svc
+    state: present

@@ -10,6 +10,7 @@ rules:
       - pods
       - services
       - secrets
+      - configmaps
     verbs:
       - list
       - get
@@ -47,5 +48,11 @@ rules:
       - machine.openshift.io
     resources:
       - machinesets
+    verbs:
+      - "*"
+  - apiGroups:
+      - objectbucket.io
+    resources:
+      - objectbucketclaims
     verbs:
       - "*"
