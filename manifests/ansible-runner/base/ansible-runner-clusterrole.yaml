@@ -16,7 +16,7 @@ rules:
   - apiGroups:
       - observability.open-cluster-management.io
     resources:
-      - multiclusterobservability
+      - multiclusterobservabilities
     verbs:
       - "*"
   - apiGroups:
