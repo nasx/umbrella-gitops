@@ -1,6 +1,8 @@
 acm_hub_namespace: open-cluster-management
-acm_observability_namespace: open-cluster-management-observability
 acm_hub_name: umbrella-hub
-acm_pull_secret: pull-secret
-acm_observability_pull_secret: multiclusterhub-operator-pull-secret
+acm_observability_namespace: open-cluster-management-observability
+acm_observability_name: umbrella-observability
 acm_observability_obc: acm-observability-obc
+acm_observability_pull_secret: multiclusterhub-operator-pull-secret
+acm_observability_storage_class: thin
+acm_pull_secret: pull-secret

@@ -39,7 +39,7 @@
       kind: Secret
       metadata:
         name: pull-secret
-        namespace: open-cluster-management
+        namespace: "{{ acm_observability_namespace }}"
       type: kubernetes.io/dockerconfigjson
 
 - name: Wait for ACM Observability OBC
@@ -84,5 +84,13 @@
     api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
     ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
     definition: "{{ lookup('template', 'templates/thanos-secret.j2') | from_yaml }}"
+    host: https://kubernetes.default.svc
+    state: present
+
+- name: Create ACM Observability
+  community.kubernetes.k8s:
+    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
+    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    definition: "{{ lookup('template', 'templates/observability.j2') | from_yaml }}"
     host: https://kubernetes.default.svc
     state: present

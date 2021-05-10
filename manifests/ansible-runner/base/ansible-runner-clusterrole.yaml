@@ -14,6 +14,12 @@ rules:
     verbs:
       - "*"
   - apiGroups:
+      - observability.open-cluster-management.io
+    resources:
+      - multiclusterobservability
+    verbs:
+      - "*"
+  - apiGroups:
       - operator.open-cluster-management.io
     resources:
       - multiclusterhubs
