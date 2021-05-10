@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ansible
+  labels:
+    app: ansible
+  namespace: ansible-runner
+spec:
+  serviceAccountName: ansible-runner-sa
+  containers:
+    - name: ansible
+      image: image-registry.openshift-image-registry.svc:5000/ansible-runner/ansible-runner:latest
+      command:
+        - /bin/bash
+        - -c
+        - |
+          sleep infinity

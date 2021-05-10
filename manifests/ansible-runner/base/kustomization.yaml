@@ -8,3 +8,4 @@ resources:
   - ansible-runner-clusterrolebinding.yaml
   - ansible-runner-imagestream.yaml
   - ansible-runner-buildconfig.yaml
+  - ansible-runner-debug-pod.yaml

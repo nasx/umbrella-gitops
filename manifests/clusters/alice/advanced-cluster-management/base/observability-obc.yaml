@@ -2,7 +2,7 @@ apiVersion: objectbucket.io/v1alpha1
 kind: ObjectBucketClaim
 metadata:
   name: acm-observability-obc
-  namespace: open-cluster-management
+  namespace: open-cluster-management-observability
 spec:
   generateBucketName: acm-observability
   storageClassName: openshift-storage.noobaa.io

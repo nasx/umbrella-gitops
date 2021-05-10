@@ -11,3 +11,4 @@ resources:
   - umbrella-gitops-channel.yaml
   - aws-sa-northeast-sealed.yaml
   - observability-obc.yaml
+  - observability-namespace.yaml
