@@ -12,3 +12,4 @@ resources:
   - aws-sa-northeast-sealed.yaml
   - observability-obc.yaml
   - observability-namespace.yaml
+  - observability-job.yaml
