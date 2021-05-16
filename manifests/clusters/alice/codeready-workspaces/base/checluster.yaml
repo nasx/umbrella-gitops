@@ -1,0 +1,32 @@
+apiVersion: org.eclipse.che/v1
+kind: CheCluster
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  name: codeready-workspaces
+  namespace: openshift-workspaces
+spec:
+  auth:
+    initialOpenShiftOAuthUser: true
+    externalIdentityProvider: false
+  database:
+    externalDb: false
+  devWorkspace:
+    enable: false
+  metrics:
+    enable: true
+  server:
+    tlsSupport: true
+    allowUserDefinedWorkspaceNamespaces: false
+    workspaceNamespaceDefault: <username>-codeready
+    gitSelfSignedCert: false
+    useInternalClusterSVCNames: true
+    cheFlavor: codeready
+  storage:
+    postgresPVCStorageClassName: thick-nvme
+    preCreateSubPaths: true
+    pvcClaimSize: 5Gi
+    pvcStrategy: per-workspace
+    workspacePVCStorageClassName: thick-nvme

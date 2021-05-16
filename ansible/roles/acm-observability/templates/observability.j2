@@ -7,6 +7,8 @@ spec:
   enableDownSampling: false
   imagePullPolicy: Always
   imagePullSecret: {{ acm_observability_pull_secret }}
+  nodeSelector:
+    node-role.kubernetes.io/infra:
   observabilityAddonSpec:
     enableMetrics: true
     interval: 60

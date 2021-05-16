@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: openshift-workspaces-subscription
+  namespace: openshift-workspaces
+spec:
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  name: codeready-workspaces
+  channel: latest
