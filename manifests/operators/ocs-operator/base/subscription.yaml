@@ -4,7 +4,7 @@ metadata:
   name: openshift-storage-subscription
   namespace: openshift-storage
 spec:
-  channel: stable-4.7
+  channel: stable-4.8
   name: ocs-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
