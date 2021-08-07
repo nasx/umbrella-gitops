@@ -13,7 +13,7 @@ spec:
   - targetObjectRef:
       apiVersion: v1
       kind: Node
-      name: cnv-node1.alice.ocp.pwc.umbrella.local
+      name: cnv-node1.alice.lab.uc2.io
     patchTemplate: |
       metadata:
         labels:

@@ -16,7 +16,7 @@ spec:
         servingCerts:
           namedCertificates:
           - names:
-            - api.alice.ocp.pwc.umbrella.local
+            - api.alice.lab.uc2.io
             servingCertificate:
               name: api-cert
     patchType: application/merge-patch+json
