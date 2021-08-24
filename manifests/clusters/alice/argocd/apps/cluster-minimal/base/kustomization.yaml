@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - apiserver-app.yaml
   - ingress-controller-app.yaml
-  - kustomization.yaml
   - machine-config-pools-app.yaml
   - node-labels-app.yaml
   - resource-locker-app.yaml
