@@ -1,0 +1,25 @@
+name = "edge-base"
+description = "Base RAD RFE Image"
+version = "0.0.1"
+modules = []
+groups = []
+
+[[packages]]
+name = "rsyslog"
+version = "*"
+
+[[packages]]
+name = "rsyslog-mmjsonparse"
+version = "*"
+
+[[packages]]
+name = "rsyslog-elasticsearch"
+version = "*"
+
+[customizations]
+
+[[customizations.user]]
+name = "core"
+description = "core"
+password = "$6$jG8fqcWyKns1mbvW$FItGiDZ1kDu1hzihLyWm2ogLeVQS7Fu4zop0MSZ5/Dsx3SORyGmVY725hrj09gXHhkFgNqMBgpT/gin9ChY6h0"
+groups = ["wheel"]
