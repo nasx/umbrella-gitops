@@ -1,6 +1,6 @@
 name = "edge-base"
 description = "Base RAD RFE Image"
-version = "0.0.1"
+version = "0.0.2"
 modules = []
 groups = []
 
@@ -14,6 +14,18 @@ version = "*"
 
 [[packages]]
 name = "rsyslog-elasticsearch"
+version = "*"
+
+[[packages]]
+name = "pcp"
+version = "*"
+
+[[packages]]
+name = "pcp-pmda-postgresql"
+version = "*"
+
+[[packages]]
+name = "pcp-pmda-openmetrics"
 version = "*"
 
 [customizations]
