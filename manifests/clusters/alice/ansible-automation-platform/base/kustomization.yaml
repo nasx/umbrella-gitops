@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - ../../../../operators/ansible-automation-platform/base
+  - automationcontroller.yaml

@@ -1,0 +1,18 @@
+apiVersion: automationcontroller.ansible.com/v1beta1
+kind: AutomationController
+metadata:
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  name: automation-controller
+  namespace: ansible-automation-platform
+spec:
+  admin_user: admin
+  create_preload_data: true
+  garbage_collect_secrets: false
+  image_pull_policy: IfNotPresent
+  ingress_type: Route
+  projects_persistence: false
+  replicas: 1
+  route_tls_termination_mechanism: Edge
+  task_privileged: false
