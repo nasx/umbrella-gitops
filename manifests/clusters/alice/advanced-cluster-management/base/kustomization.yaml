@@ -6,7 +6,7 @@ resources:
   - multiclusterhub.yaml
   - byo-ingress-tls-sealed.yaml
   - byo-ca-cert-sealed.yaml
-  - byo-certs-patch-job.yaml
+#  - byo-certs-patch-job.yaml
   - umbrella-gitops-namespace.yaml
   - umbrella-gitops-channel.yaml
   - aws-sa-northeast-sealed.yaml
