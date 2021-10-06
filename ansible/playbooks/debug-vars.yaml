@@ -1,0 +1,22 @@
+- name: Debug Ansible Variables
+  hosts: localhost
+  tasks:
+    - name: Display Ansible Variables
+      vars:
+        message: |
+          == Debugging: vars ========================================
+          {{ vars | to_nice_json }}
+
+          == Debugging: environment =================================
+          {{ environment | to_nice_json }}
+
+          == Debugging: group_names =================================
+          {{ group_names | to_nice_json }}
+
+          == Debugging: groups ======================================
+          {{ groups | to_nice_json }}
+
+          == Debugging: hostvars ====================================
+          {{ hostvars | to_nice_json }}
+      ansible.builtin.debug:
+        msg: "{{ message.split('\n') }}"
