@@ -28,11 +28,11 @@ spec:
               mkdir -p $TOWER_INSTALLER_DIRECTORY
               TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
               curl -sL $TOWER_INSTALLER_URL | tar -xvzf - -C $TOWER_INSTALLER_DIRECTORY --strip 1
-              $TOWER_INSTALLER_DIRECTORY/setup_openshift.sh -i $INVENTORY_FILE -e openshift_token=$TOKEN -e openshift_pg_pvc_name=postgres-pvc
+              $TOWER_INSTALLER_DIRECTORY/setup_openshift.sh --insecure-skip-tls-verify -i $INVENTORY_FILE -e openshift_token=$TOKEN -e openshift_pg_pvc_name=postgres-pvc
           volumeMounts:
             - name: inventory
               mountPath: /var/secrets/inventory
-              readOnly: yes
+              readOnly: true
           imagePullPolicy: Always
           name: tower-install-job
       volumes:
