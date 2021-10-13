@@ -1,0 +1,15 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: elite-python-subscription
+  namespace: umbrella-gitops
+  annotations:
+      apps.open-cluster-management.io/git-branch: main
+      apps.open-cluster-management.io/github-path: manifests/clusters/elite-python/advanced-cluster-management-policies/base
+      apps.open-cluster-management.io/reconcile-option: merge
+spec:
+  channel: umbrella-gitops/umbrella-gitops
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: placement-rule-spark-shot
