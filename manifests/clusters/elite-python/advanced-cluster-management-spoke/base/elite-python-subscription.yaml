@@ -10,6 +10,4 @@ metadata:
 spec:
   channel: umbrella-gitops/umbrella-gitops
   placement:
-    placementRef:
-      kind: PlacementRule
-      name: elite-python-placement-rule
+    local: true

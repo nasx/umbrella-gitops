@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: elite-python-ingress-controller
+  namespace: umbrella-gitops
+placementRef:
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+  name: elite-python-placement-rule
+subjects:
+- apiGroup: policy.open-cluster-management.io
+  kind: Policy
+  name: elite-python-ingress-controller
