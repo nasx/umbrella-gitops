@@ -127,3 +127,29 @@ spec:
                   mappingMethod: claim
                   name: Umbrella IdM
                   type: LDAP
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: elite-python-oauth-ldap-bind-secret
+      spec:
+        remediationAction: enforce
+        severity: high
+        object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              kind: SealedSecret
+              apiVersion: bitnami.com/v1alpha1
+              metadata:
+                name: oauth-ldap-bind-secret
+                namespace: openshift-config
+                creationTimestamp: null
+              spec:
+                template:
+                  metadata:
+                    name: oauth-ldap-bind-secret
+                    namespace: openshift-config
+                    creationTimestamp: null
+                  type: Opaque
+                encryptedData:
+                  bindPassword: AgCYIH9bdTbF/Ti6O5AXoD70D8ZL7ZY4SehAEj5I7rmEpcNVYM4Dy2La2qDOuuS2vp0thHQtm4RFU3f9Hz9Z4Wwg5KmnUplbNucauM9klIcZlyxe6N8Wuuuh1VIUrPVoWcNSj+ShOQdf2axIHjcJTeMm5MtzEPuRQ7rhMxIEQZkVDtz9zVXCy8CtSGdDWS1Y4LUXXk3JkU8GlkR7X7tWFvqc6HNvtTF7dznDWMtXlCCMmRX7Di0uEGPNeLGhxX07/It1PWl+YRg4yg2lhyzg997+KI/MWEsgAWO5CxkO5TwDTYLRGrsPbtltjCKeuStVMBqzqtBBdTFeKDTmMHkU+nzkcoSzRjRYD1AMu3MH/MxWqVb/pMFT1J0indwnl67lKaVYPWo/dr/eBuRf35wcRH26sCoCKArLAg1RHMTAcPL4qxl/v82i4Jt1ZF54JxjT0xjrXs8/Ri4ptWhw1XKZ5VrfseRy14wNLemFh3URqKubLbZ0u0fC+ApW6tdOR28t93aslztRTDJoT7et1ilbLw/vT0e8jzvlkSaM2v4N4ynh6CJH/2KUySiR57OXak/8L9wIGjcLGA3Z9jrCeX08cP0Zm+9x4uWi0jRr/LFQsjxxlbi3Hwn4WmvaT6EkKCvbn49hw+NP1ulkwHsY0LR+KmyHpScmw9yNmmOuNuAKsRh1PDvvIeQG8v4xSu0brG/fiRRQDyKBeStUmw==
