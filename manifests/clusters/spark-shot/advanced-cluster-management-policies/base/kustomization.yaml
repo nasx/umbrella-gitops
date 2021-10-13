@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - spark-shot-apiserver.yaml
+  - spark-shot-ingress-controller.yaml
+  - spark-shot-oauth.yaml
+  - spark-shot-placement-binding.yaml

@@ -1,0 +1,19 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: spark-shot-placement-binding
+  namespace: umbrella-gitops
+placementRef:
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+  name: spark-shot-placement-rule
+subjects:
+  - apiGroup: policy.open-cluster-management.io
+    kind: Policy
+    name: spark-shot-apiserver
+  - apiGroup: policy.open-cluster-management.io
+    kind: Policy
+    name: spark-shot-ingress-controller
+  - apiGroup: policy.open-cluster-management.io
+    kind: Policy
+    name: spark-shot-oauth

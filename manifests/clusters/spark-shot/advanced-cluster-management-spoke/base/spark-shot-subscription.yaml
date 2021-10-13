@@ -3,15 +3,11 @@ kind: Subscription
 metadata:
   name: spark-shot-subscription
   namespace: umbrella-gitops
-  labels:
-    app: spark-shot
   annotations:
       apps.open-cluster-management.io/git-branch: main
-      apps.open-cluster-management.io/github-path: manifests/clusters/spark-shot/argocd/apps/spark-shot/base
+      apps.open-cluster-management.io/github-path: manifests/clusters/spark-shot/advanced-cluster-management-policies/base
       apps.open-cluster-management.io/reconcile-option: merge
 spec:
   channel: umbrella-gitops/umbrella-gitops
   placement:
-    placementRef:
-      kind: PlacementRule
-      name: placement-rule-spark-shot
+    local: true
