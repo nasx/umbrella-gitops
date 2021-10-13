@@ -12,4 +12,4 @@ spec:
   placement:
     placementRef:
       kind: PlacementRule
-      name: placement-rule-spark-shot
+      name: elite-python-placement-rule
