@@ -10,7 +10,10 @@ placementRef:
 subjects:
   - apiGroup: policy.open-cluster-management.io
     kind: Policy
-    name: elite-python-oauth
+    name: elite-python-apiserver
   - apiGroup: policy.open-cluster-management.io
     kind: Policy
     name: elite-python-ingress-controller
+  - apiGroup: policy.open-cluster-management.io
+    kind: Policy
+    name: elite-python-oauth
