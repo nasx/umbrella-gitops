@@ -3,13 +3,12 @@ kind: Kustomization
 
 resources:
   - ../../../../operators/advanced-cluster-management/base
-  - multiclusterhub.yaml
-  - byo-ingress-tls-sealed.yaml
   - byo-ca-cert-sealed.yaml
-#  - byo-certs-patch-job.yaml
-  - umbrella-gitops-namespace.yaml
-  - umbrella-gitops-channel.yaml
-  - aws-sa-northeast-sealed.yaml
-  - observability-obc.yaml
-  - observability-namespace.yaml
+  - byo-ingress-tls-sealed.yaml
+  - multiclusterhub.yaml
   - observability-job.yaml
+  - observability-namespace.yaml
+  - observability-obc.yaml
+  - umbrella-gitops-channel.yaml
+  - umbrella-gitops-namespace.yaml
+  - umbrella-gitops-subscription.yaml
