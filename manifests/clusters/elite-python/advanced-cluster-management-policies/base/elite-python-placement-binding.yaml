@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: elite-python-oauth-binding
+  name: elite-python-placement-binding
   namespace: umbrella-gitops
 placementRef:
   apiGroup: apps.open-cluster-management.io
