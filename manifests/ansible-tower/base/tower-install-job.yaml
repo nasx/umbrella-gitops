@@ -21,6 +21,8 @@ spec:
               value: "https://releases.ansible.com/ansible-tower/setup_openshift/ansible-tower-openshift-setup-latest.tar.gz"
             - name: INVENTORY_FILE
               value: /var/secrets/inventory/inventory
+            - name: KUBERNETES_AWX_IMAGE
+              value: image-registry.openshift-image-registry.svc:5000/ansible-tower/kubernetes-awx-image
           command:
             - /bin/bash
             - -c
@@ -28,7 +30,13 @@ spec:
               mkdir -p $TOWER_INSTALLER_DIRECTORY
               TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
               curl -sL $TOWER_INSTALLER_URL | tar -xvzf - -C $TOWER_INSTALLER_DIRECTORY --strip 1
-              $TOWER_INSTALLER_DIRECTORY/setup_openshift.sh -i $INVENTORY_FILE -e openshift_token=$TOKEN -e openshift_skip_tls_verify=true -e openshift_pg_pvc_name=postgres-pvc
+              $TOWER_INSTALLER_DIRECTORY/setup_openshift.sh \
+                -i $INVENTORY_FILE \
+                -e openshift_token=$TOKEN \
+                -e openshift_pg_pvc_name=postgres-pvc \
+                -e openshift_skip_tls_verify=true \
+                -e kubernetes_awx_image=$KUBERNETES_AWX_IMAGE \
+                -e kubernetes_awx_version=latest
           volumeMounts:
             - name: inventory
               mountPath: /var/secrets/inventory
