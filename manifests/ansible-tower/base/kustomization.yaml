@@ -8,7 +8,10 @@ resources:
   - ansible-tower-install-sa-clusterrolebinding.yaml
   - ansible-tower-install-sa-clusterrole.yaml
   - ansible-tower-install-sa.yaml
+  - awx-sa-image-puller-rolebinding.yaml
   - inventory-sealed.yaml
+  - kubernetes-awx-image-buildconfig.yaml
+  - kubernetes-awx-image-stream.yaml
   - namespace.yaml
   - postgres-pvc.yaml
   - tower-install-job.yaml
