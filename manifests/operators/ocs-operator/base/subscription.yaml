@@ -5,6 +5,6 @@ metadata:
   namespace: openshift-storage
 spec:
   channel: stable-4.9
-  name: ocs-operator
+  name: odf-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
