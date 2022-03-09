@@ -1,0 +1,53 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  labels:
+    machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
+  name: "{{ cluster_info.resources[0].status.infrastructureName }}-{{ item.name }}-{{ item.zone }}"
+  namespace: openshift-machine-api
+spec:
+  replicas: {{ item.replicas | int }}
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
+      machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-{{ item.name }}-{{ item.zone }}"
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: "{{ cluster_info.resources[0].status.infrastructureName }}"
+        machine.openshift.io/cluster-api-machine-role: "{{ item.machine_role }}"
+        machine.openshift.io/cluster-api-machine-type: "{{ item.machine_type }}"
+        machine.openshift.io/cluster-api-machineset: "{{ cluster_info.resources[0].status.infrastructureName }}-{{ item.name }}-{{ item.zone }}"
+{% if item.os is defined %}
+        machine.openshift.io/os-id: {{ item.os }}
+{% endif %}
+    spec:
+      metadata:
+        labels: {{ item.node_labels }}
+      providerSpec:
+        value:
+          ami:
+            id: "{{ item.ami }}"
+          apiVersion: awsproviderconfig.openshift.io/v1beta1
+          blockDevices: {{ item.blockDevices }}
+          credentialsSecret:
+            name: aws-cloud-credentials
+          deviceIndex: 0
+          iamInstanceProfile:
+            id: "{{ cluster_info.resources[0].status.infrastructureName }}-worker-profile"
+          instanceType: "{{ item.instance_type }}"
+          kind: AWSMachineProviderConfig
+          placement:
+            availabilityZone: "{{ item.zone }}"
+            region: "{{ item.region }}"
+          securityGroups:
+            - filters:
+                - name: tag:Name
+                  values:
+                    - "{{ cluster_info.resources[0].status.infrastructureName }}-worker-sg"
+          subnet:
+            id: {{ item.subnet_id }}
+          tags: {{ item.tags }}
+          userDataSecret:
+            name: "{{ item.user_data_secret }}"
+            namespace: openshift-machine-api

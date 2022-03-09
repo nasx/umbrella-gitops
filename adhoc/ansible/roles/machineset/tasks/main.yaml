@@ -1,0 +1,19 @@
+- name: Query Cluster Infrastructure Name
+  community.kubernetes.k8s_info:
+    api_version: config.openshift.io/v1
+    kind: Infrastructure
+    name: cluster
+    validate_certs: "{{ k8s_validate_certs }}"
+  register: cluster_info
+
+- name: Debug Infrastructure Name
+  ansible.builtin.debug:
+    msg: "{{ cluster_info.resources[0].status.infrastructureName }}"
+    verbosity: 1
+
+- name: Create Machine Sets
+  community.kubernetes.k8s:
+    definition: "{{ lookup('template', 'templates/machineset.yaml.j2') | from_yaml }}"
+    state: present
+    validate_certs: "{{ k8s_validate_certs }}"
+  loop: "{{ machinesets }}"
