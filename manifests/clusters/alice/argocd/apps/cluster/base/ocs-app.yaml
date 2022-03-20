@@ -13,7 +13,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster-config
   source:
-    path: manifests/clusters/alice/ocs/base
+    path: manifests/clusters/alice/odf/base
     repoURL: https://github.com/nasx/umbrella-gitops.git
     targetRevision: main
   syncPolicy:
