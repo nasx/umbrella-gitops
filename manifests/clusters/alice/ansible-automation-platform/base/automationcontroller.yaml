@@ -15,7 +15,6 @@ spec:
   ingress_type: Route
   projects_persistence: true
   postgres_storage_class: ocs-storagecluster-cephfs
-  projects_persistence: true
   projects_storage_access_mode: ReadWriteMany
   projects_storage_class: ocs-storagecluster-cephfs
   projects_storage_size: 8Gi
