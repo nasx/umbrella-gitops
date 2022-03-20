@@ -1,10 +1,10 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: thick-nvme
+  name: thick-spinning
 parameters:
   diskformat: zeroedthick
-  datastore: pool-nvme-vms
+  datastore: pool-spinning-vms
 provisioner: kubernetes.io/vsphere-volume
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
