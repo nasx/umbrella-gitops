@@ -4,6 +4,7 @@ metadata:
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "3"    
   name: automation-controller
   namespace: ansible-automation-platform
 spec:
@@ -12,7 +13,12 @@ spec:
   garbage_collect_secrets: false
   image_pull_policy: IfNotPresent
   ingress_type: Route
-  projects_persistence: false
-  replicas: 1
+  projects_persistence: true
+  postgres_storage_class: ocs-storagecluster-cephfs
+  projects_persistence: true
+  projects_storage_access_mode: ReadWriteMany
+  projects_storage_class: ocs-storagecluster-cephfs
+  projects_storage_size: 8Gi
+  replicas: 2
   route_tls_termination_mechanism: Edge
   task_privileged: false
