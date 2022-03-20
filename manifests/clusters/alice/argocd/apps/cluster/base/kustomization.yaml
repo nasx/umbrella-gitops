@@ -20,4 +20,4 @@ resources:
 #  - cnv-app.yaml
 #  - compliance-operator-app.yaml
 #  - ansible-tower-app.yaml
-#  - ansible-automation-platform-app.yaml
+  - ansible-automation-platform-app.yaml

@@ -4,7 +4,8 @@ metadata:
   name: ansible-automation-platform-subscription
   namespace: ansible-automation-platform
 spec:
+  channel: stable-2.1
+  installPlanApproval: Automatic
+  name: ansible-automation-platform-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  name: ansible-automation-platform-operator
-  channel: early-access
