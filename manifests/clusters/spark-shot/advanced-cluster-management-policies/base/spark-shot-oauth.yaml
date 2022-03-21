@@ -123,7 +123,7 @@ spec:
                     ca:
                       name: oauth-ldap-ca-config-map
                     insecure: false
-                    url: ldap://idm1.umbrella.local/cn=users,cn=accounts,dc=umbrella,dc=local?uid
+                    url: ldap://idm1.lab.uc2.io/cn=users,cn=accounts,dc=umbrella,dc=local?uid
                   mappingMethod: claim
                   name: Umbrella IdM
                   type: LDAP
