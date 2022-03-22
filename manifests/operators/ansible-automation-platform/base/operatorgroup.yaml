@@ -3,6 +3,4 @@ kind: OperatorGroup
 metadata:
   name: ansible-automation-platform
   namespace: ansible-automation-platform
-spec:
-  targetNamespaces:
-    - ansible-automation-platform
+spec: {}
