@@ -6,6 +6,6 @@ resources:
   - ingress-controller-app.yaml
   - machine-config-pools-app.yaml
   - node-labels-app.yaml
-  - resource-locker-app.yaml
   - sealed-secrets-app.yaml
   - vmware-storage-classes-app.yaml
+

@@ -14,6 +14,6 @@ resources:
   - ocs-app.yaml
   - patch-operator-app.yaml
   - registry-app.yaml
-  - resource-locker-app.yaml
   - sealed-secrets-app.yaml
   - vmware-storage-classes-app.yaml
+
