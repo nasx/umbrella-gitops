@@ -1,0 +1,18 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: patch-operator-apiserver-role
+  namespace: patch-operator-config
+rules:
+- apiGroups:
+  - config.openshift.io
+  resources:
+  - apiserver
+  - apiservers
+  verbs:
+  - list
+  - get
+  - watch
+  - create
+  - update
+  - patch

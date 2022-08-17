@@ -3,3 +3,19 @@ kind: Kustomization
 
 resources:
   - ../../../../operators/patch-operator/base
+  - clusterrole-apiserver.yaml
+  - clusterrolebinding-apiserver.yaml
+  - clusterrolebinding-ingress.yaml
+  - clusterrolebinding-node.yaml
+  - clusterrolebinding-oauth.yaml
+  - clusterrolebinding-registry.yaml
+  - clusterrole-ingress.yaml
+  - clusterrole-node.yaml
+  - clusterrole-oauth.yaml
+  - clusterrole-registry.yaml
+  - namespace.yaml
+  - serviceaccount-apiserver.yaml
+  - serviceaccount-ingress.yaml
+  - serviceaccount-node.yaml
+  - serviceaccount-oauth.yaml
+  - serviceaccount-registry.yaml
