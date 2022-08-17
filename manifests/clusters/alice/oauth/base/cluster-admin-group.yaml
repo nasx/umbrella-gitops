@@ -3,4 +3,4 @@ kind: Group
 metadata:
   name: cluster-admins
 users:
-- chris
+  - chris

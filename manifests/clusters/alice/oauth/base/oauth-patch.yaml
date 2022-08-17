@@ -1,38 +1,38 @@
 apiVersion: redhatcop.redhat.io/v1alpha1
-kind: ResourceLocker
+kind: Patch
 metadata:
   name: oauth-patch
-  namespace: resource-locker-config
+  namespace: patch-operator-config
 spec:
   serviceAccountRef:
-    name: resource-locker-oauth-sa
+    name: patch-operator-oauth-sa
   patches:
-  - targetObjectRef:
-      apiVersion: config.openshift.io/v1
-      kind: OAuth
-      name: cluster
-    patchTemplate: |
-      spec:
-        identityProviders:
-        - name: "UC2 IdM"
-          mappingMethod: claim
-          type: LDAP
-          ldap:
-            attributes:
-              id:
-              - dn
-              email:
-              - mail
-              name:
-              - cn
-              preferredUsername:
-              - uid
-            bindDN: uid=ocp-service-account,cn=users,cn=accounts,dc=lab,dc=uc2,dc=io
-            bindPassword:
-              name: oauth-ldap-bind-secret
-            ca:
-              name: oauth-ldap-ca-config-map
-            insecure: false
-            url: ldap://idm1.lab.uc2.io/cn=users,cn=accounts,dc=lab,dc=uc2,dc=io?uid
+    oauth-patch:
+      targetObjectRef:
+        apiVersion: config.openshift.io/v1
+        kind: OAuth
+        name: cluster
+      patchTemplate: |
+        spec:
+          identityProviders:
+          - name: "UC2 IdM"
+            mappingMethod: claim
+            type: LDAP
+            ldap:
+              attributes:
+                id:
+                - dn
+                email:
+                - mail
+                name:
+                - cn
+                preferredUsername:
+                - uid
+              bindDN: uid=ocp-service-account,cn=users,cn=accounts,dc=lab,dc=uc2,dc=io
+              bindPassword:
+                name: oauth-ldap-bind-secret
+              ca:
+                name: oauth-ldap-ca-config-map
+              insecure: false
+              url: ldap://idm1.lab.uc2.io/cn=users,cn=accounts,dc=lab,dc=uc2,dc=io?uid
     patchType: application/merge-patch+json
-    id: oauth-patch
