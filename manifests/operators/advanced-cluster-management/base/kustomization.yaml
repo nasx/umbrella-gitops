@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - operatorgroup.yaml
-  - subscription.yaml
   - pull-secret-sealed.yaml
+  - subscription.yaml

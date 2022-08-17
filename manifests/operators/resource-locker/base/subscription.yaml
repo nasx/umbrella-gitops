@@ -5,6 +5,7 @@ metadata:
   namespace: openshift-operators
 spec:
   channel: alpha
+  installPlanApproval: Automatic
   name: resource-locker-operator
   source: community-operators
   sourceNamespace: openshift-marketplace
