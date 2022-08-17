@@ -13,7 +13,6 @@ resources:
   - oauth-app.yaml
   - advanced-cluster-management-app.yaml
   - ansible-runner-app.yaml
-#  - windows-machine-config-operator-app.yaml
   - vmware-storage-classes-app.yaml
   - cluster-monitoring-app.yaml
 #  - codeready-workspaces-app.yaml
