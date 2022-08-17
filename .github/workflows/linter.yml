@@ -1,5 +1,4 @@
 ---
----
 #################################
 #################################
 ## Super Linter GitHub Actions ##
@@ -17,7 +16,7 @@ name: Lint Code Base
 #############################
 on:
   push:
-    branches: [master, main]
+    # branches: [master, main]
     # Remove the line above to run when pushing to master
   pull_request:
     branches: [master, main]
@@ -49,9 +48,9 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: github/super-linter@v4
+        uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_KUBERNETES_KUBEVAL: false
-          DEFAULT_BRANCH: master
+          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
