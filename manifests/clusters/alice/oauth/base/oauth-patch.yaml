@@ -4,14 +4,8 @@ metadata:
   name: oauth-patch
   namespace: patch-operator-config
 spec:
-  serviceAccountRef:
-    name: patch-operator-oauth-sa
   patches:
     oauth-patch:
-      targetObjectRef:
-        apiVersion: config.openshift.io/v1
-        kind: OAuth
-        name: cluster
       patchTemplate: |
         spec:
           identityProviders:
@@ -36,3 +30,9 @@ spec:
               insecure: false
               url: ldap://idm1.lab.uc2.io/cn=users,cn=accounts,dc=lab,dc=uc2,dc=io?uid
       patchType: application/merge-patch+json
+      targetObjectRef:
+        apiVersion: config.openshift.io/v1
+        kind: OAuth
+        name: cluster
+  serviceAccountRef:
+    name: patch-operator-oauth-sa
