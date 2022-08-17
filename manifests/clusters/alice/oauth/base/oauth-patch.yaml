@@ -35,4 +35,4 @@ spec:
                 name: oauth-ldap-ca-config-map
               insecure: false
               url: ldap://idm1.lab.uc2.io/cn=users,cn=accounts,dc=lab,dc=uc2,dc=io?uid
-    patchType: application/merge-patch+json
+      patchType: application/merge-patch+json
