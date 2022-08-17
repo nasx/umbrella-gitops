@@ -1,23 +1,23 @@
 apiVersion: redhatcop.redhat.io/v1alpha1
-kind: ResourceLocker
+kind: Patch
 metadata:
   name: apiserver-patch
-  namespace: resource-locker-config
+  namespace: patch-operator-config
 spec:
-  serviceAccountRef:
-    name: resource-locker-apiserver-sa
   patches:
-  - targetObjectRef:
-      apiVersion: config.openshift.io/v1
-      kind: APIServer
-      name: cluster
-    patchTemplate: |
-      spec:
-        servingCerts:
-          namedCertificates:
-          - names:
-            - api.alice.lab.uc2.io
-            servingCertificate:
-              name: api-cert
-    patchType: application/merge-patch+json
-    id: apiserver-patch
+    apiserver-patch:
+      patchTemplate: |
+        spec:
+          servingCerts:
+            namedCertificates:
+            - names:
+              - api.alice.lab.uc2.io
+              servingCertificate:
+                name: api-cert
+      patchType: application/merge-patch+json
+      targetObjectRef:
+        apiVersion: config.openshift.io/v1
+        kind: APIServer
+        name: cluster
+  serviceAccountRef:
+    name: patch-operator-apiserver-sa
