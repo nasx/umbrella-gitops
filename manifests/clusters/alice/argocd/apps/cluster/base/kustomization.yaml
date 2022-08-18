@@ -9,6 +9,7 @@ resources:
   - cluster-monitoring-app.yaml
   - ingress-controller-app.yaml
   - machine-config-pools-app.yaml
+  - metallb-app.yaml
   - node-labels-app.yaml
   - oauth-app.yaml
   - ocs-app.yaml
