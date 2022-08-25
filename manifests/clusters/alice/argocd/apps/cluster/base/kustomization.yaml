@@ -7,6 +7,7 @@ resources:
   - ansible-runner-app.yaml
   - apiserver-app.yaml
   - cluster-monitoring-app.yaml
+  - cnv-app.yaml
   - ingress-controller-app.yaml
   - machine-config-pools-app.yaml
   - metallb-app.yaml
@@ -17,4 +18,3 @@ resources:
   - registry-app.yaml
   - sealed-secrets-app.yaml
   - vmware-storage-classes-app.yaml
-
