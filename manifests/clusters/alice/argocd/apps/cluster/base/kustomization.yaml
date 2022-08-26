@@ -13,6 +13,7 @@ resources:
   - metallb-app.yaml
   - node-labels-app.yaml
   - oauth-app.yaml
+  - openshift-pipelines-operator-app.yaml
   - ocs-app.yaml
   - patch-operator-app.yaml
   - registry-app.yaml
