@@ -3,3 +3,5 @@ kind: Kustomization
 
 resources:
   - ../../../../operators/quay-operator/base
+  - namespace.yaml
+  - registry.yaml
