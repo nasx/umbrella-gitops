@@ -1,23 +1,26 @@
-apiVersion: observability.open-cluster-management.io/v1beta1
+apiVersion: observability.open-cluster-management.io/v1beta2
 kind: MultiClusterObservability
 metadata:
   name: {{ acm_observability_name }}
 spec:
-  availabilityConfig: High
-  enableDownSampling: false
+  advanced:
+    retentionConfig:
+      retentionResolution1h: 30d
+      retentionResolution5m: 14d
+      retentionResolutionRaw: 5d
+  enableDownsampling: false
   imagePullPolicy: Always
   imagePullSecret: {{ acm_observability_pull_secret }}
-  nodeSelector:
-    node-role.kubernetes.io/infra:
   observabilityAddonSpec:
     enableMetrics: true
     interval: 60
-  retentionResolution1h: 30d
-  retentionResolution5m: 14d
-  retentionResolutionRaw: 5d
-  storageConfigObject:
+  storageConfig:
+    alertmanagerStorageSize: 10Gi
+    compactStorageSize: 10Gi
     metricObjectStorage:
-      name: thanos-object-storage
       key: thanos.yaml
-    statefulSetSize: 10Gi
-    statefulSetStorageClass: {{ acm_observability_storage_class }}
+      name: thanos-object-storage
+    receiveStorageSize: 10Gi
+    ruleStorageSize: 10Gi
+    storageClass: {{ acm_observability_storage_class }}
+    storeStorageSize: 10Gi
