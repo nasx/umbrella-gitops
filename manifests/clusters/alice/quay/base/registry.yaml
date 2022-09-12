@@ -1,5 +1,7 @@
 apiVersion: quay.redhat.com/v1
 kind: QuayRegistry
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   name: registry
   namespace: quay
