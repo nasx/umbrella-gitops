@@ -1,0 +1,79 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: ansible-builder
+  namespace: ansible-execution-environments
+spec:
+  workspaces:
+    - name: ee-repo
+  params:
+    - name: git-url
+      type: string
+      description: url of the git repo for the code of deployment
+      default: https://github.com/jtudelag/ansible-execution-environments.git
+    - name: git-revision
+      type: string
+      description: revision to be used from repo of the code for deployment (Commit id)
+      default: main
+    - description: Name of the container image to be built
+      name: NAME
+      type: string
+    - description: Tag of the container image to be built
+      name: TAG
+      type: string
+      default: "latest"
+    - description: Path to the directory to use as context for buildah.
+      name: CONTEXT
+      type: string
+      default: "context/"
+    - description: The path to the Dockerfile to execute.
+      name: DOCKERFILE
+      type: string
+      default: "Containerfile"
+    - description: Execution environment file definition.
+      name: FILENAME
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      workspaces:
+        - name: output
+          workspace: ee-repo
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: deleteExisting
+          value: "true"
+        - name: revision
+          value: $(params.git-revision)
+    - name: ansible-builder
+      taskRef:
+        name: ansible-builder
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: ee-repo
+      runAfter:
+        - fetch-repository
+      params:
+        - name: FILENAME
+          value: $(params.FILENAME)
+    - name: build-image-tag
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      workspaces:
+        - name: source
+          workspace: ee-repo
+      runAfter:
+        - ansible-builder
+      params:
+        - name: TLSVERIFY
+          value: "false"
+        - name: IMAGE
+          value: $(params.NAME):$(params.TAG)
+        - name: CONTEXT
+          value: "$(params.CONTEXT)"
+        - name: DOCKERFILE
+          value: "$(params.DOCKERFILE)"

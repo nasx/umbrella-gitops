@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ansible-builder-workspace-pvc
+  namespace: ansible-execution-environments
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: thick-nvme
+  volumeMode: Filesystem

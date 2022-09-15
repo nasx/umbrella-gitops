@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - image-stream-acm-hook.yaml
+  - namespace.yaml
+  - pipeline-ansible-builder.yaml
+  - pipeline-task-ansible-builder.yaml
+  - pipeline-workspace-pvc.yaml
