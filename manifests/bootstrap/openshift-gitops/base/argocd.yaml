@@ -1,27 +1,76 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ArgoCD
 metadata:
-  name: openshift-gitops
-  namespace: openshift-gitops
+  name: umbrella
+  namespace: umbrella-gitops
 spec:
-  repo:
+  controller:
+    processors:
+      operation: 4
+      status: 4
     resources:
       limits:
-        cpu: "1"
-        memory: 1024Mi
+        cpu: "2"
+        memory: 2048Mi
       requests:
-        cpu: 250m
-        memory: 256Mi
+        cpu: 500m
+        memory: 1024Mi
+    sharding:
+      enabled: true
+      replicas: 4
   dex:
     openShiftOAuth: true
-  rbac:
-    defaultPolicy: "role:admin"
-  server:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  grafana:
+    enabled: false
+    ingress:
+      enabled: false
     route:
-      enabled: true
-    tls:
-      insecureEdgeTerminationPolicy: Redirect
-      termination: edge
+      enabled: false
+  ha:
+    enabled: true
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  initialSSHKnownHosts: {}
+  prometheus:
+    enabled: false
+    ingress:
+      enabled: false
+    route:
+      enabled: false
+  rbac:
+    defaultPolicy: ""
+    policy: |
+      g, system:cluster-admins, role:admin
+    scopes: '[groups]'
+  redis:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  repo:
+    replicas: 2
+    resources:
+      limits:
+        cpu: "2"
+        memory: 2048Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
   resourceCustomizations: |
     route.openshift.io/Route:
       ignoreDifferences: |
@@ -40,3 +89,29 @@ spec:
       - tekton.dev
       kinds:
       - PipelineRun
+  server:
+    autoscale:
+      enabled: false
+    grpc:
+      ingress:
+        enabled: false
+    ingress:
+      enabled: true
+    replicas: 2
+    resources:
+      limits:
+        cpu: "2"
+        memory: 2048Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+    route:
+      enabled: true
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: reencrypt
+    service:
+      type: ""
+  statusBadgeEnabled: true
+  tls:
+    ca: {}

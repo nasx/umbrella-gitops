@@ -9,7 +9,7 @@ metadata:
     gitops.ownedBy: cluster-config
 spec:
   destination:
-    namespace: openshift-gitops
+    namespace: umbrella-gitops
     server: https://kubernetes.default.svc
   project: cluster-config
   source:

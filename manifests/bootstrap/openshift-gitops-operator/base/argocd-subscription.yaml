@@ -5,6 +5,12 @@ metadata:
   namespace: openshift-operators
 spec:
   channel: stable
+  config:
+    env:
+      - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
+        value: "TRUE"
+      - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
+        value: "umbrella-gitops"
   installPlanApproval: Automatic
   name: openshift-gitops-operator
   source: redhat-operators
