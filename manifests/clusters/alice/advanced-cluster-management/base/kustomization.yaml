@@ -9,6 +9,6 @@ resources:
   - observability-job.yaml
   - observability-namespace.yaml
   - observability-obc.yaml
-  - umbrella-gitops-channel.yaml
+#  - umbrella-gitops-channel.yaml
   - umbrella-gitops-namespace.yaml
 #  - umbrella-gitops-subscription.yaml
