@@ -1,0 +1,171 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: securedcluster-deployment
+  namespace: stackrox
+  annotations:
+    policy.open-cluster-management.io/standards: NIST-CSF
+    policy.open-cluster-management.io/categories: PR.IP Information Protection Processes and Procedures
+    policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: secured-cluster-namespaces
+      spec:
+        remediationAction: enforce
+        severity: High
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: v1
+            kind: Namespace
+            metadata:
+              name: stackrox
+            spec: {}
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: v1
+            kind: Namespace
+            metadata:
+              name: rhacs-operator
+            spec: {}
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: secured-cluster-init-bundle
+      spec:
+        remediationAction: enforce
+        severity: High
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: v1
+            data:
+              ca.pem: '{{hub fromSecret "stackrox" "sensor-tls" "ca.pem" hub}}'
+              sensor-cert.pem: '{{hub fromSecret "stackrox" "sensor-tls" "sensor-cert.pem" hub}}'
+              sensor-key.pem: '{{hub fromSecret "stackrox" "sensor-tls" "sensor-key.pem" hub}}'
+            kind: Secret
+            metadata:
+              annotations:
+                init-bundle.stackrox.io/created-at: '{{hub index (lookup "v1" "Secret" "stackrox" "sensor-tls").metadata.annotations "init-bundle.stackrox.io/created-at" hub}}'
+                init-bundle.stackrox.io/expires-at: '{{hub index (lookup "v1" "Secret" "stackrox" "sensor-tls").metadata.annotations "init-bundle.stackrox.io/expires-at" hub}}'
+                init-bundle.stackrox.io/id: '{{hub index (lookup "v1" "Secret" "stackrox" "sensor-tls").metadata.annotations "init-bundle.stackrox.io/id" hub}}'
+                init-bundle.stackrox.io/name: '{{hub index (lookup "v1" "Secret" "stackrox" "sensor-tls").metadata.annotations "init-bundle.stackrox.io/name" hub}}'
+              name: sensor-tls
+              namespace: stackrox
+            type: Opaque
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: v1
+            data:
+              admission-control-cert.pem: '{{hub fromSecret "stackrox" "admission-control-tls" "admission-control-cert.pem" hub}}'
+              admission-control-key.pem: '{{hub fromSecret "stackrox" "admission-control-tls" "admission-control-key.pem" hub}}'
+              ca.pem: '{{hub fromSecret "stackrox" "admission-control-tls" "ca.pem" hub}}'
+            kind: Secret
+            metadata:
+              annotations:
+                init-bundle.stackrox.io/created-at: '{{hub index (lookup "v1" "Secret" "stackrox" "admission-control-tls").metadata.annotations "init-bundle.stackrox.io/created-at" hub}}'
+                init-bundle.stackrox.io/expires-at: '{{hub index (lookup "v1" "Secret" "stackrox" "admission-control-tls").metadata.annotations "init-bundle.stackrox.io/expires-at" hub}}'
+                init-bundle.stackrox.io/id: '{{hub index (lookup "v1" "Secret" "stackrox" "admission-control-tls").metadata.annotations "init-bundle.stackrox.io/id" hub}}'
+                init-bundle.stackrox.io/name: '{{hub index (lookup "v1" "Secret" "stackrox" "admission-control-tls").metadata.annotations "init-bundle.stackrox.io/name" hub}}'
+              name: admission-control-tls
+              namespace: stackrox
+            type: Opaque
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: v1
+            data:
+              ca.pem: '{{hub fromSecret "stackrox" "collector-tls" "ca.pem" hub}}'
+              collector-cert.pem: '{{hub fromSecret "stackrox" "collector-tls" "collector-cert.pem" hub}}'
+              collector-key.pem: '{{hub fromSecret "stackrox" "collector-tls" "collector-key.pem" hub}}'
+            kind: Secret
+            metadata:
+              annotations:
+                init-bundle.stackrox.io/created-at: '{{hub index (lookup "v1" "Secret" "stackrox" "collector-tls").metadata.annotations "init-bundle.stackrox.io/created-at" hub}}'
+                init-bundle.stackrox.io/expires-at: '{{hub index (lookup "v1" "Secret" "stackrox" "collector-tls").metadata.annotations "init-bundle.stackrox.io/expires-at" hub}}'
+                init-bundle.stackrox.io/id: '{{hub index (lookup "v1" "Secret" "stackrox" "collector-tls").metadata.annotations "init-bundle.stackrox.io/id" hub}}'
+                init-bundle.stackrox.io/name: '{{hub index (lookup "v1" "Secret" "stackrox" "collector-tls").metadata.annotations "init-bundle.stackrox.io/name" hub}}'
+              name: collector-tls
+              namespace: stackrox
+            type: Opaque
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: acs-operator-deployment
+      spec:
+        remediationAction: enforce
+        severity: High
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: operators.coreos.com/v1
+            kind: OperatorGroup
+            metadata:
+              generateName: rhacs-operator-
+              name: rhacs-operator
+              namespace: rhacs-operator
+            spec:
+              upgradeStrategy: Default
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: operators.coreos.com/v1alpha1
+            kind: Subscription
+            metadata:
+              labels:
+                operators.coreos.com/rhacs-operator.rhacs-operator: ""
+              name: rhacs-operator
+              namespace: rhacs-operator
+            spec:
+              channel: latest
+              installPlanApproval: Automatic
+              name: rhacs-operator
+              source: redhat-operators
+              sourceNamespace: openshift-marketplace
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: acs-securedcluster
+      spec:
+        remediationAction: enforce
+        severity: High
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: platform.stackrox.io/v1alpha1
+            kind: SecuredCluster
+            metadata:
+              name: stackrox-secured-cluster-services
+              namespace: stackrox
+            spec:
+              auditLogs:
+                collection: Auto
+              admissionControl:
+                listenOnUpdates: true
+                bypass: BreakGlassAnnotation
+                contactImageScanners: DoNotScanInline
+                listenOnCreates: true
+                timeoutSeconds: 20
+                listenOnEvents: true
+              scanner:
+                analyzer:
+                  scaling:
+                    autoScaling: Enabled
+                    maxReplicas: 5
+                    minReplicas: 2
+                    replicas: 3
+                scannerComponent: AutoSense
+              perNode:
+                collector:
+                  collection: EBPF
+                  imageFlavor: Regular
+                taintToleration: TolerateTaints
+              clusterName: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "stackrox" "cluster").status.infrastructureName }}'
+              centralEndpoint: '{{hub (lookup "route.openshift.io/v1" "Route" "stackrox" "central").spec.host hub}}:443'
