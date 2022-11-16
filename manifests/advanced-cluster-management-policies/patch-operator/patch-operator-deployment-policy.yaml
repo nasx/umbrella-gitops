@@ -1,0 +1,91 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: patch-operator-deployment-policy
+  namespace: uc2-gitops
+  annotations:
+    policy.open-cluster-management.io/standards: NIST 800-53, NIST-CSF
+    policy.open-cluster-management.io/categories: CM Configuration Management, PR.IP Information Protection Processes and Procedures
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, PR.IP-1 Baseline Configuration
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: patch-operator-namespaces
+        spec:
+          remediationAction: enforce
+          severity: high
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: patch-operator
+                spec: {}
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: patch-operator-config
+                spec: {}
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: patch-operator-operatorgroup
+        spec:
+          remediationAction: enforce
+          severity: high
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1
+                kind: OperatorGroup
+                metadata:
+                  name: patch-operator-operatorgroup
+                  namespace: patch-operator
+                spec:
+                  targetNamespaces: []
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: patch-operator-subscription
+        spec:
+          remediationAction: enforce
+          severity: high
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: Subscription
+                metadata:
+                  name: patch-operator
+                  namespace: patch-operator
+                spec:
+                  channel: alpha
+                  installPlanApproval: Automatic
+                  name: patch-operator
+                  source: community-operators
+                  sourceNamespace: openshift-marketplace

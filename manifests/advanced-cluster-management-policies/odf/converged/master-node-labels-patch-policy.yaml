@@ -1,0 +1,107 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: master-node-labels-patch-policy
+  namespace: uc2-gitops
+  annotations:
+    policy.open-cluster-management.io/standards: NIST 800-53, NIST-CSF
+    policy.open-cluster-management.io/categories: CM Configuration Management, PR.IP Information Protection Processes and Procedures
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, PR.IP-1 Baseline Configuration
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-rbac
+        spec:
+          remediationAction: enforce
+          severity: high
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: ServiceAccount
+                metadata:
+                  name: patch-operator-node-sa
+                  namespace: patch-operator-config
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: rbac.authorization.k8s.io/v1
+                kind: ClusterRole
+                metadata:
+                  name: patch-operator-node-role
+                  namespace: patch-operator-config
+                rules:
+                - apiGroups:
+                  - ""
+                  resources:
+                  - nodes
+                  - node
+                  verbs:
+                  - list
+                  - get
+                  - watch
+                  - create
+                  - update
+                  - patch
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: rbac.authorization.k8s.io/v1
+                kind: ClusterRoleBinding
+                metadata:
+                  name: patch-operator-node-rolebinding
+                roleRef:
+                  apiGroup: rbac.authorization.k8s.io
+                  kind: ClusterRole
+                  name: patch-operator-node-role
+                subjects:
+                - kind: ServiceAccount
+                  name: patch-operator-node-sa
+                  namespace: patch-operator-config
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: master-node-label-patch
+        spec:
+          remediationAction: enforce
+          severity: high
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: redhatcop.redhat.io/v1alpha1
+                kind: Patch
+                metadata:
+                  name: odf-converged-master-node-labels
+                  namespace: patch-operator-config
+                spec:
+                  patches:
+                    master-nodes-patch:
+                      patchTemplate: |
+                        metadata:
+                          labels:
+                            cluster.ocs.openshift.io/openshift-storage: ""
+                      patchType: application/merge-patch+json
+                      targetObjectRef:
+                        apiVersion: v1
+                        kind: Node
+                        labelSelector:
+                          matchExpressions:
+                            - key: node-role.kubernetes.io/master
+                              operator: Exists
+                              values: []
+                  serviceAccountRef:
+                    name: patch-operator-node-sa
