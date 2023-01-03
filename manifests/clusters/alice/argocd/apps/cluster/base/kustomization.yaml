@@ -2,22 +2,22 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - advanced-cluster-management-app.yaml
-  - ansible-automation-platform-app.yaml
-  - ansible-execution-environments-app.yaml
-  - ansible-runner-app.yaml
+#  - advanced-cluster-management-app.yaml
+#  - ansible-automation-platform-app.yaml
+#  - ansible-execution-environments-app.yaml
+#  - ansible-runner-app.yaml
   - apiserver-app.yaml
-  - cluster-monitoring-app.yaml
-  - cnv-app.yaml
+#  - cluster-monitoring-app.yaml
+#  - cnv-app.yaml
   - ingress-controller-app.yaml
   - machine-config-pools-app.yaml
-  - metallb-app.yaml
+#  - metallb-app.yaml
   - node-labels-app.yaml
   - oauth-app.yaml
-  - openshift-pipelines-operator-app.yaml
-  - ocs-app.yaml
+#  - openshift-pipelines-operator-app.yaml
+#  - ocs-app.yaml
   - patch-operator-app.yaml
-  - quay-app.yaml
-  - registry-app.yaml
+#  - quay-app.yaml
+#  - registry-app.yaml
   - sealed-secrets-app.yaml
   - vmware-storage-classes-app.yaml

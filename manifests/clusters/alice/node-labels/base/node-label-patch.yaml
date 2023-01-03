@@ -8,40 +8,7 @@ metadata:
   namespace: patch-operator-config
 spec:
   patches:
-    cnv-node0-patch:
-      patchTemplate: |
-        metadata:
-          labels:
-            node-role.kubernetes.io/cnv: ""
-            node-role.kubernetes.io/worker: null
-      patchType: application/merge-patch+json
-      targetObjectRef:
-        apiVersion: v1
-        kind: Node
-        name: cnv-node0.alice.lab.uc2.io
-    cnv-node1-patch:
-      patchTemplate: |
-        metadata:
-          labels:
-            node-role.kubernetes.io/cnv: ""
-            node-role.kubernetes.io/worker: null
-      patchType: application/merge-patch+json
-      targetObjectRef:
-        apiVersion: v1
-        kind: Node
-        name: cnv-node1.alice.lab.uc2.io
-    cnv-node2-patch:
-      patchTemplate: |
-        metadata:
-          labels:
-            node-role.kubernetes.io/cnv: ""
-            node-role.kubernetes.io/worker: null
-      patchType: application/merge-patch+json
-      targetObjectRef:
-        apiVersion: v1
-        kind: Node
-        name: cnv-node2.alice.lab.uc2.io
-    infra-node0-patch:
+    infra0-patch:
       patchTemplate: |
         metadata:
           labels:
@@ -51,8 +18,8 @@ spec:
       targetObjectRef:
         apiVersion: v1
         kind: Node
-        name: infra-node0.alice.lab.uc2.io
-    infra-node1-patch:
+        name: infra0.alice.lab.uc2.io
+    infra1-patch:
       patchTemplate: |
         metadata:
           labels:
@@ -62,8 +29,8 @@ spec:
       targetObjectRef:
         apiVersion: v1
         kind: Node
-        name: infra-node1.alice.lab.uc2.io
-    infra-node2-patch:
+        name: infra1.alice.lab.uc2.io
+    infra2-patch:
       patchTemplate: |
         metadata:
           labels:
@@ -73,8 +40,8 @@ spec:
       targetObjectRef:
         apiVersion: v1
         kind: Node
-        name: infra-node2.alice.lab.uc2.io
-    ocs-node0-patch:
+        name: infra2.alice.lab.uc2.io
+    odf0-patch:
       patchTemplate: |
         metadata:
           labels:
@@ -85,8 +52,8 @@ spec:
       targetObjectRef:
         apiVersion: v1
         kind: Node
-        name: ocs-node0.alice.lab.uc2.io
-    ocs-node1-patch:
+        name: odf0.alice.lab.uc2.io
+    odf1-patch:
       patchTemplate: |
         metadata:
           labels:
@@ -97,8 +64,8 @@ spec:
       targetObjectRef:
         apiVersion: v1
         kind: Node
-        name: ocs-node1.alice.lab.uc2.io
-    ocs-node2-patch:
+        name: odf1.alice.lab.uc2.io
+    odf2-patch:
       patchTemplate: |
         metadata:
           labels:
@@ -109,6 +76,6 @@ spec:
       targetObjectRef:
         apiVersion: v1
         kind: Node
-        name: ocs-node2.alice.lab.uc2.io
+        name: odf2.alice.lab.uc2.io
   serviceAccountRef:
     name: patch-operator-node-sa
