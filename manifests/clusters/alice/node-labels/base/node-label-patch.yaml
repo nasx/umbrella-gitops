@@ -46,7 +46,7 @@ spec:
         metadata:
           labels:
             cluster.ocs.openshift.io/openshift-storage: ""
-            node-role.kubernetes.io/ocs: ""
+            node-role.kubernetes.io/odf: ""
             node-role.kubernetes.io/worker: null
       patchType: application/merge-patch+json
       targetObjectRef:
@@ -58,7 +58,7 @@ spec:
         metadata:
           labels:
             cluster.ocs.openshift.io/openshift-storage: ""
-            node-role.kubernetes.io/ocs: ""
+            node-role.kubernetes.io/odf: ""
             node-role.kubernetes.io/worker: null
       patchType: application/merge-patch+json
       targetObjectRef:
@@ -70,7 +70,7 @@ spec:
         metadata:
           labels:
             cluster.ocs.openshift.io/openshift-storage: ""
-            node-role.kubernetes.io/ocs: ""
+            node-role.kubernetes.io/odf: ""
             node-role.kubernetes.io/worker: null
       patchType: application/merge-patch+json
       targetObjectRef:
