@@ -3,3 +3,6 @@ kind: Kustomization
 
 resources:
   - ../../../../operators/advanced-cluster-security/base
+  - central.yaml
+  - namespace.yaml
+  - uc2-central-tls-sealed.yaml
