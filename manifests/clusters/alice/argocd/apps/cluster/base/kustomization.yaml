@@ -16,7 +16,7 @@ resources:
   - node-labels-app.yaml
   - oauth-app.yaml
 #  - openshift-pipelines-operator-app.yaml
-#  - ocs-app.yaml
+  - odf-app.yaml
   - patch-operator-app.yaml
 #  - quay-app.yaml
 #  - registry-app.yaml
