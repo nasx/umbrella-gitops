@@ -6,7 +6,7 @@ resources:
   - advanced-cluster-security-app.yaml
 #  - ansible-automation-platform-app.yaml
 #  - ansible-execution-environments-app.yaml
-#  - ansible-runner-app.yaml
+  - ansible-runner-app.yaml
   - apiserver-app.yaml
   - cluster-monitoring-app.yaml
 #  - cnv-app.yaml
