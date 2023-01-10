@@ -8,7 +8,7 @@ resources:
 #  - ansible-execution-environments-app.yaml
 #  - ansible-runner-app.yaml
   - apiserver-app.yaml
-#  - cluster-monitoring-app.yaml
+  - cluster-monitoring-app.yaml
 #  - cnv-app.yaml
   - ingress-controller-app.yaml
   - machine-config-pools-app.yaml
