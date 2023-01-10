@@ -10,11 +10,11 @@ data:
         node-role.kubernetes.io/infra: ""
       volumeClaimTemplate:
        spec:
-         storageClassName: thick-nvme
+         storageClassName: thick-ssd
          volumeMode: Filesystem
          resources:
            requests:
-             storage: 50Gi
+             storage: 30Gi
     alertmanagerMain:
       nodeSelector:
         node-role.kubernetes.io/infra: ""

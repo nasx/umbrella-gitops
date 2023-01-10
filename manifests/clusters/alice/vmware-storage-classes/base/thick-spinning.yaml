@@ -4,7 +4,7 @@ metadata:
   name: thick-spinning
 parameters:
   diskformat: zeroedthick
-  datastore: pool-spinning-vms
+  datastore: pool-spinning-z2-1
 provisioner: kubernetes.io/vsphere-volume
 reclaimPolicy: Delete
 volumeBindingMode: Immediate

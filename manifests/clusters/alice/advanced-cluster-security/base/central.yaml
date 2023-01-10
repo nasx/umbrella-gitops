@@ -22,7 +22,7 @@ spec:
     persistence:
       persistentVolumeClaim:
         claimName: stackrox-db
-        storageClassName: thick-nvme
+        storageClassName: thick-ssd
   egress:
     connectivityPolicy: Online
   scanner:
