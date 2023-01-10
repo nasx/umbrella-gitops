@@ -19,6 +19,6 @@ resources:
   - odf-app.yaml
   - patch-operator-app.yaml
 #  - quay-app.yaml
-#  - registry-app.yaml
+  - registry-app.yaml
   - sealed-secrets-app.yaml
   - vmware-storage-classes-app.yaml
