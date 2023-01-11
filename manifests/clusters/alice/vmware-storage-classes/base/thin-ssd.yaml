@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: thin-ssd
+parameters:
+  diskformat: thin
+  datastore: r440-1-ssd-local
+provisioner: kubernetes.io/vsphere-volume
+reclaimPolicy: Delete
+volumeBindingMode: Immediate

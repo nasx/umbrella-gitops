@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: thin-spinning
+parameters:
+  diskformat: thin
+  datastore: pool-spinning-z2-1
+provisioner: kubernetes.io/vsphere-volume
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
