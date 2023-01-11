@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - ../../../../operators/advanced-cluster-management/base
+  - agent-service-config.yaml
   - byo-ca-cert-sealed.yaml
   - byo-ingress-tls-sealed.yaml
   - multiclusterhub.yaml
