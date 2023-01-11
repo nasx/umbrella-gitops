@@ -23,4 +23,4 @@ spec:
     resources:
       requests:
         storage: 100G
-    storageClassName: thick-spinning
+    storageClassName: thin-ssd
