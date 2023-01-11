@@ -6,7 +6,7 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
     argocd.argoproj.io/sync-wave: "5"    
   name: automation-controller
-  namespace: ansible-automation-platform
+  namespace: aap
 spec:
   admin_user: admin
   create_preload_data: true
