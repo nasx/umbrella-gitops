@@ -2,5 +2,5 @@ apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   name: ansible-automation-platform
-  namespace: ansible-automation-platform
+  namespace: aap
 spec: {}

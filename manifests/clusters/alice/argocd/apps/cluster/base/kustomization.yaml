@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - advanced-cluster-management-app.yaml
   - advanced-cluster-security-app.yaml
-#  - ansible-automation-platform-app.yaml
+  - ansible-automation-platform-app.yaml
 #  - ansible-execution-environments-app.yaml
   - ansible-runner-app.yaml
   - apiserver-app.yaml
