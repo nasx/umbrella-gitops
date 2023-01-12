@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: securedcluster-deployment-placement-binding
+  namespace: stackrox
+placementRef:
+  name: securedcluster-deployment-placement
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: securedcluster-deployment
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: sealed-secrets-controller-deployment-binding
+  namespace: sealed-secrets
+placementRef:
+  name: sealed-secrets-controller-deployment-rule
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: sealed-secrets-controller-deployment
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

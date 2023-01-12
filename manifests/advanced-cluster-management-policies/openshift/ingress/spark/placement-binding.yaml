@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: spark-ingress-binding
+  namespace: umbrella-gitops
+placementRef:
+  name: spark-ingress-rule
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: spark-ingress-policy
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
