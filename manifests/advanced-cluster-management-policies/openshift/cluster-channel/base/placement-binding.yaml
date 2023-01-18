@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: cluster-channel-binding
+  namespace: umbrella-gitops
+placementRef:
+  name: cluster-channel-rule
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: cluster-channel
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
