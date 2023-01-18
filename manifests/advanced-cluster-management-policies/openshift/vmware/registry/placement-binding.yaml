@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: vmware-rwo-registry-binding
+  namespace: umbrella-gitops
+placementRef:
+  name: vmware-rwo-registry-rule
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: vmware-rwo-registry
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

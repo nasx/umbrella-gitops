@@ -1,0 +1,19 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: vmware-rwo-registry-rule
+  namespace: umbrella-gitops
+spec:
+  clusterSelector:
+    matchExpressions:
+      - key: cloud
+        operator: In
+        values:
+          - vSphere
+      - key: vendor
+        operator: In
+        values:
+          - OpenShift
+      - key: local-cluster
+        operator: DoesNotExist
+  clusterConditions: []
