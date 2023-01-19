@@ -14,6 +14,7 @@ resources:
   - machine-config-pools-app.yaml
 #  - metallb-app.yaml
   - node-labels-app.yaml
+  - oadp-app.yaml
   - oauth-app.yaml
 #  - openshift-pipelines-operator-app.yaml
   - odf-app.yaml
