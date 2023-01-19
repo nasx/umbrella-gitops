@@ -2,7 +2,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-policy-cis-scan
-  namespace: openshift-compliance
+  namespace: umbrella-gitops
 placementRef:
   name: placement-policy-cis-scan
   kind: PlacementRule

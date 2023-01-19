@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: compliance-operator-deployment-binding
+  namespace: umbrella-gitops
+placementRef:
+  name: compliance-operator-deployment-rule
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: compliance-operator-deployment
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

@@ -2,14 +2,16 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: placement-policy-cis-scan
-  namespace: openshift-compliance
+  namespace: umbrella-gitops
 spec:
   clusterConditions:
   - status: "True"
     type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-    - key: vendor
-      operator: In
-      values:
-      - "OpenShift"
+      - key: vendor
+        operator: In
+        values:
+          - OpenShift
+      - key: local-cluster
+        operator: DoesNotExist
