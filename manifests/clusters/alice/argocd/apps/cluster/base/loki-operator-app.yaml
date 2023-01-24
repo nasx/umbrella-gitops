@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: advanced-cluster-management
+  name: loki-operator
   annotations:
     argocd.argoproj.io/sync-wave: "1"
   labels:
