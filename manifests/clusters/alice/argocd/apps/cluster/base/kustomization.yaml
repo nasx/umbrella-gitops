@@ -14,6 +14,7 @@ resources:
   - loki-operator-app.yaml
   - machine-config-pools-app.yaml
 #  - metallb-app.yaml
+  - network-observability-app.yaml
   - node-labels-app.yaml
   - oadp-app.yaml
   - oauth-app.yaml
